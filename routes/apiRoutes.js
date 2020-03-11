@@ -1,6 +1,6 @@
-const Driver = require("./models/Driver");
-const Car = require("./models/Car");
-const Result = require("./models/Result");
+const Driver = require("../models/Driver");
+const Car = require("../models/Car");
+const Result = require("../models/Result");
 
 module.exports = function(app) {
   app.route("/api/:driverId").get(async (req, res) => {

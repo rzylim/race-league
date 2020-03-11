@@ -31,7 +31,7 @@ const resultSchema = new mongoose.Schema({
     required: true
   },
   _driver: {
-    type: { type: mongoose.Schema.OBjectId, ref: "Driver" },
+    type: { type: mongoose.Schema.OBjectId, ref: "User" },
     required: true
   },
   _car: {
