@@ -1,21 +1,9 @@
 const passport = require("passport");
 const DiscordStrategy = require("@oauth-everything/passport-discord").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
 const mongoose = require("mongoose");
 
 const User = mongoose.model("users");
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (error) {
-    done(error, null);
-  }
-});
 
 passport.use(
   new DiscordStrategy(
@@ -40,6 +28,25 @@ passport.use(
         }
       } catch (error) {
         done(error, null);
+      }
+    }
+  )
+);
+
+passport.use(
+  new JwtStrategy(
+    {
+      jwtFromRequest: req => req.cookies.jwt,
+      secretOrKey: process.env.JWT_KEY
+    },
+    (jwtPayload, done) => {
+      try {
+        if (Date.now() > jwtPayload.expires) {
+          return done("jwt expired");
+        }
+        return done(null, jwtPayload);
+      } catch (error) {
+        done(error);
       }
     }
   )

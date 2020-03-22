@@ -5,9 +5,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
-import DiscordLogin from "../discord-signin/discord-signin.component";
+import DiscordSignin from "../discord-signin/discord-signin.component";
 
-const Header = ({ currentUser }) => (
+import { signOutStart } from "../../redux/user/user.actions";
+
+const Header = ({ currentUser, signOutStart }) => (
   <Navbar bg="dark" variant="dark" fixed="sticky-top" expand="sm">
     <Navbar.Brand href="/">Race League</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -17,12 +19,12 @@ const Header = ({ currentUser }) => (
         <Nav.Link href="/test2">Test2</Nav.Link>
       </Nav>
       {currentUser ? (
-        <Button href="/api/logout" variant="outline-danger">
+        <Button onClick={signOutStart} variant="outline-danger">
           Sign out
         </Button>
       ) : (
         <Nav.Link href="/auth/discord">
-          <DiscordLogin />
+          <DiscordSignin />
         </Nav.Link>
       )}
     </Navbar.Collapse>
@@ -33,4 +35,8 @@ const mapStateToProps = ({ user: { currentUser } }) => ({
   currentUser
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(signOutStart())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

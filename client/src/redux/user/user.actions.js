@@ -18,16 +18,16 @@ export const signInFailure = error => ({
   payload: error
 });
 
-// export const signOutStart = () => ({
-//   type: UserActionTypes.SIGN_OUT_START
-// });
+export const signOutStart = () => ({
+  type: UserActionTypes.SIGN_OUT_START
+});
 
-// export const signOutSuccess = user => ({
-//   type: UserActionTypes.SIGN_OUT_SUCCESS,
-//   payload: user
-// });
+export const signOutSuccess = user => ({
+  type: UserActionTypes.SIGN_OUT_SUCCESS,
+  payload: user
+});
 
-// export const signOutFailure = error => ({
-//   type: UserActionTypes.SIGN_OUT_FAILURE,
-//   payload: error
-// });
+export const signOutFailure = error => ({
+  type: UserActionTypes.SIGN_OUT_FAILURE,
+  payload: error
+});

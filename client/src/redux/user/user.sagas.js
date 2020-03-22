@@ -2,9 +2,14 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import UserActionTypes from "./user.types";
 
-import { signInSuccess, signInFailure } from "./user.actions";
+import {
+  signInSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure
+} from "./user.actions";
 
-import { getCurrentUser } from "./user.utils";
+import { getCurrentUser, signOutUser } from "./user.utils";
 
 export function* onCheckUserSession() {
   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
@@ -16,8 +21,7 @@ export function* isUserAuthenticated() {
     if (!user) return;
     yield put(
       signInSuccess({
-        id: user._id,
-        email: user.email
+        ...user
       })
     );
   } catch (error) {
@@ -25,6 +29,19 @@ export function* isUserAuthenticated() {
   }
 }
 
+export function* onSignOutStart() {
+  yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+}
+
+export function* signOut() {
+  try {
+    signOutUser();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
+
 export function* userSagas() {
-  yield all([call(onCheckUserSession)]);
+  yield all([call(onCheckUserSession), call(onSignOutStart)]);
 }
