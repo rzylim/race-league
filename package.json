@@ -14,6 +14,7 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
+    "@oauth-everything/passport-discord": "^1.0.2",
     "body-parser": "^1.18.3",
     "compression": "^1.7.4",
     "cookie-session": "^1.4.0",
@@ -21,9 +22,8 @@
     "dotenv": "7.0.0",
     "express": "^4.16.4",
     "express-sslify": "^1.2.0",
-    "mongoose": "^5.9.4",
-    "passport": "^0.4.1",
-    "@oauth-everything/passport-discord": "^1.0.2"
+    "mongoose": "^5.9.11",
+    "passport": "^0.4.1"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
