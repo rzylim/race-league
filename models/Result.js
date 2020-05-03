@@ -1,93 +1,88 @@
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI);
 
 const resultSchema = new mongoose.Schema({
   created_on: {
     type: Date,
-    required: true
+    required: true,
   },
   modified_on: {
     type: Date,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
-  championship_id: {
-    type: Number,
-    required: true
+  _championship: {
+    type: { type: mongoose.Schema.OBjectId, ref: "Championship" },
+    required: true,
   },
-  season_id: {
-    type: Number,
-    required: true
+  _race: {
+    type: { type: mongoose.Schema.OBjectId, ref: "Race" },
+    required: true,
   },
-  race_id: {
-    type: Number,
-    required: true
-  },
-  track_id: {
-    type: String,
-    required: true
+  _track: {
+    type: { type: mongoose.Schema.OBjectId, ref: "Track" },
+    required: true,
   },
   _driver: {
     type: { type: mongoose.Schema.OBjectId, ref: "User" },
-    required: true
+    required: true,
   },
   _car: {
     type: { type: mongoose.Schema.OBjectId, ref: "Car" },
-    required: true
+    required: true,
   },
-  team: {
-    type: String,
-    required: true
+  _team: {
+    type: { type: mongoose.Schema.OBjectId, ref: "Team" },
+    required: true,
   },
   qualifying_time: {
-    type: Date
+    type: Date,
   },
   qualifying_position: {
-    type: Number
+    type: Number,
   },
   qualifying_tyre: {
-    type: String
+    type: String,
   },
   qualifying_points: {
-    type: Number
+    type: Number,
   },
   grid_position: {
     type: Number,
-    required: true
+    required: true,
   },
   race_time: {
     type: Date,
-    required: true
+    required: true,
   },
   race_position: {
     type: Number,
-    required: true
+    required: true,
   },
   race_tyres: {
-    type: [String]
+    type: [String],
   },
   race_points: {
-    type: Number
+    type: Number,
   },
   penalties_num: {
     type: Number,
-    required: true
+    required: true,
   },
   penalties_time: {
     type: Date,
-    required: true
+    required: true,
   },
   fastest_lap: {
     type: Date,
-    required: true
+    required: true,
   },
   driver_of_the_day: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+  },
 });
 const Result = mongoose.model("Result", resultSchema);
 

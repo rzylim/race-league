@@ -1,19 +1,18 @@
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URI);
 
 const carSchema = new mongoose.Schema({
-  name: {
+  model: {
     type: String,
-    required: true
+    required: true,
   },
-  team: {
+  make: {
     type: String,
-    required: true
+    required: true,
   },
   year: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 const Car = mongoose.model("Car", carSchema);
 

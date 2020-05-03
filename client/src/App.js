@@ -17,17 +17,18 @@ const App = ({ checkUserSession, currentUser }) => {
       <Header />
       <Switch>
         <Route exact path="/" component={Landing} />
+        {/* admin role, test role (that can only create but not delete seasons) */}
       </Switch>
     </div>
   );
 };
 
 const mapStateToProps = ({ user: { currentUser } }) => ({
-  currentUser
+  currentUser,
 });
 
-const mapDispatchToProps = dispatch => ({
-  checkUserSession: () => dispatch(checkUserSession())
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
