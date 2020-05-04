@@ -1,0 +1,7 @@
+const UiActionTypes = {
+  LOAD_UI_DATA_START: "LOAD_UI_DATA_START",
+  LOAD_UI_DATA_SUCCESS: "LOAD_UI_DATA_SUCCESS",
+  LOAD_UI_DATA_FAILURE: "LOAD_UI_DATA_FAILURE",
+};
+
+export default UiActionTypes;

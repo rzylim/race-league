@@ -11,6 +11,11 @@ const seriesSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.OBjectId, ref: "Game" }],
     required: true,
   },
+  link: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 const Series = mongoose.model("Series", seriesSchema);
 

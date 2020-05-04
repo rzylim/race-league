@@ -3,16 +3,29 @@ import { connect } from "react-redux";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 
 import DiscordLogin from "../discord-signin/discord-signin.component";
 
-const Header = ({ currentUser }) => (
+import "./header.styles.scss";
+
+const Header = ({ currentUser, series }) => (
   <Navbar bg="dark" variant="dark" fixed="sticky-top" expand="sm">
     <Navbar.Brand href="/">Race League</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
+        {series.map((s) => (
+          <NavDropdown title={s.name}>
+            <NavDropdown.Item href={`/${s.link}/championship`}>
+              Championship
+            </NavDropdown.Item>
+            <NavDropdown.Item href={`/${s.link}/tracks`}>
+              Tracks
+            </NavDropdown.Item>
+          </NavDropdown>
+        ))}
         <Nav.Link href="/test">Test</Nav.Link>
         <Nav.Link href="/test2">Test2</Nav.Link>
       </Nav>
@@ -29,8 +42,9 @@ const Header = ({ currentUser }) => (
   </Navbar>
 );
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
-  currentUser
+const mapStateToProps = ({ user: { currentUser }, ui: { series } }) => ({
+  currentUser,
+  series,
 });
 
 export default connect(mapStateToProps)(Header);
