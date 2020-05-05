@@ -8,7 +8,7 @@ const seriesSchema = new mongoose.Schema({
     unique: true,
   },
   games: {
-    type: [{ type: mongoose.Schema.OBjectId, ref: "Game" }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
     required: true,
   },
   link: {
@@ -17,6 +17,6 @@ const seriesSchema = new mongoose.Schema({
     unique: true,
   },
 });
-const Series = mongoose.model("Series", seriesSchema);
+const Series = mongoose.model("series", seriesSchema);
 
-exports.Series = Series;
+module.exports = Series;

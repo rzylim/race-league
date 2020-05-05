@@ -6,7 +6,7 @@ const teamSchema = new mongoose.Schema({
     required: true,
   },
   car: {
-    type: { type: mongoose.Schema.OBjectId, ref: "Car" },
+    type: { type: mongoose.Schema.Types.ObjectId, ref: "Car" },
     required: true,
   },
 });

@@ -6,11 +6,11 @@ const gameSchema = new mongoose.Schema({
     required: true,
   },
   cars: {
-    type: [{ type: mongoose.Schema.OBjectId, ref: "Car" }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Car" }],
     required: true,
   },
   tracks: {
-    type: [{ type: mongoose.Schema.OBjectId, ref: "Track" }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Track" }],
     required: true,
   },
 });
