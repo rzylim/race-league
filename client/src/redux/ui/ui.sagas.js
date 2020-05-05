@@ -11,7 +11,6 @@ export function* onLoadUiData() {
 }
 
 export function* loadUiData() {
-  console.log("in loadUiData()");
   try {
     const series = yield getSeries();
     if (!series) return;

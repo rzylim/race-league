@@ -8,8 +8,11 @@ const enforce = require("express-sslify");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 
+const mongoose = require("mongoose");
+
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
+mongoose.connect(process.env.MONGO_URI);
 require("./services/passport");
 
 const app = express();

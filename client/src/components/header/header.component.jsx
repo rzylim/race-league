@@ -16,16 +16,20 @@ const Header = ({ currentUser, series }) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        {series.map((s) => (
-          <NavDropdown title={s.name} key={s.name}>
-            <NavDropdown.Item href={`/${s.link}/championship`}>
-              Championship
-            </NavDropdown.Item>
-            <NavDropdown.Item href={`/${s.link}/tracks`}>
-              Tracks
-            </NavDropdown.Item>
-          </NavDropdown>
-        ))}
+        {series ? (
+          series.map(({ name, link }) => (
+            <NavDropdown title={name} key={name}>
+              <NavDropdown.Item href={`/${link}/championship`}>
+                Championship
+              </NavDropdown.Item>
+              <NavDropdown.Item href={`/${link}/tracks`}>
+                Tracks
+              </NavDropdown.Item>
+            </NavDropdown>
+          ))
+        ) : (
+          <div></div>
+        )}
         <Nav.Link href="/test">Test</Nav.Link>
         <Nav.Link href="/test2">Test2</Nav.Link>
       </Nav>

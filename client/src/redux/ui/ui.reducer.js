@@ -1,20 +1,7 @@
 import UiActionTypes from "./ui.types";
 
-const INITIAL_SERIES = [
-  {
-    name: "Formula 1",
-    games: ["F1 2019", "F1 2018"],
-    link: "f1",
-  },
-  {
-    name: "Gran Turismo",
-    games: ["AssettoCorsa"],
-    link: "gt",
-  },
-];
-
 const INITIAL_STATE = {
-  series: INITIAL_SERIES,
+  series: null,
   championships: null,
   error: null,
 };
@@ -24,7 +11,7 @@ const uiReducer = (state = INITIAL_STATE, action) => {
     case UiActionTypes.LOAD_UI_DATA_SUCCESS:
       return {
         ...state,
-        series: action.payload.series,
+        series: action.payload,
       };
     default:
       return state;

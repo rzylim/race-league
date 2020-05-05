@@ -1,6 +1,5 @@
 const passport = require("passport");
 const DiscordStrategy = require("@oauth-everything/passport-discord").Strategy;
-const mongoose = require("mongoose");
 
 const { User } = require("../models/User");
 
