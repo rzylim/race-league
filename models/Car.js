@@ -16,4 +16,4 @@ const carSchema = new mongoose.Schema({
 });
 const Car = mongoose.model("Car", carSchema);
 
-exports.Car = Car;
+module.exports = { carSchema, Car };

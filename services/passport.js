@@ -2,7 +2,7 @@ const passport = require("passport");
 const DiscordStrategy = require("@oauth-everything/passport-discord").Strategy;
 const mongoose = require("mongoose");
 
-const User = mongoose.model("users");
+const { User } = require("../models/User");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -23,7 +23,7 @@ passport.use(
       clientID: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
       callbackURL: "/auth/discord/callback",
-      scope: ["identify", "email"]
+      scope: ["identify", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -34,7 +34,7 @@ passport.use(
           const newUser = await new User({
             discordId: profile.id,
             username: profile.username,
-            email: profile.emails[0].value
+            email: profile.emails[0].value,
           }).save();
           done(null, newUser);
         }

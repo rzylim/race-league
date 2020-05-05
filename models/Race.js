@@ -8,4 +8,4 @@ const raceSchema = new mongoose.Schema({
 });
 const Race = mongoose.model("Race", raceSchema);
 
-exports.Race = Race;
+module.exports = { raceSchema, Race };

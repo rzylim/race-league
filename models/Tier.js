@@ -10,4 +10,4 @@ const tierSchema = new mongoose.Schema({
 });
 const Tier = mongoose.model("Tier", tierSchema);
 
-exports.Tier = Tier;
+module.exports = { tierSchema, Tier };

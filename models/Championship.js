@@ -23,4 +23,4 @@ const championshipSchema = new mongoose.Schema({
 });
 const Championship = mongoose.model("Championship", championshipSchema);
 
-exports.Championship = Championship;
+module.exports = { championshipSchema, Championship };

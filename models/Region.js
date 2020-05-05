@@ -10,4 +10,4 @@ const regionSchema = new mongoose.Schema({
 });
 const Region = mongoose.model("Region", regionSchema);
 
-exports.Region = Region;
+module.exports = { regionSchema, Region };

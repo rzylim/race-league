@@ -19,4 +19,4 @@ const seriesSchema = new mongoose.Schema({
 });
 const Series = mongoose.model("series", seriesSchema);
 
-module.exports = Series;
+module.exports = { seriesSchema, Series };

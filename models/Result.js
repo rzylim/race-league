@@ -86,4 +86,4 @@ const resultSchema = new mongoose.Schema({
 });
 const Result = mongoose.model("Result", resultSchema);
 
-exports.Result = Result;
+module.exports = { resultSchema, Result };
