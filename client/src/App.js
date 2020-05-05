@@ -3,14 +3,16 @@ import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { checkUserSession } from "./redux/user/user.actions";
+import { loadUiData } from "./redux/ui/ui.actions";
 
 import Header from "./components/header/header.component";
 const Landing = () => <h2>Landing</h2>;
 
-const App = ({ checkUserSession, currentUser }) => {
+const App = ({ checkUserSession, loadUiData, currentUser }) => {
   useEffect(() => {
     checkUserSession();
-  }, [checkUserSession]);
+    loadUiData();
+  }, [checkUserSession, loadUiData]);
 
   return (
     <div>
@@ -29,6 +31,7 @@ const mapStateToProps = ({ user: { currentUser } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   checkUserSession: () => dispatch(checkUserSession()),
+  loadUiData: () => dispatch(loadUiData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

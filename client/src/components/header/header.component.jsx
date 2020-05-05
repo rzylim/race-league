@@ -17,7 +17,7 @@ const Header = ({ currentUser, series }) => (
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
         {series.map((s) => (
-          <NavDropdown title={s.name}>
+          <NavDropdown title={s.name} key={s.name}>
             <NavDropdown.Item href={`/${s.link}/championship`}>
               Championship
             </NavDropdown.Item>
