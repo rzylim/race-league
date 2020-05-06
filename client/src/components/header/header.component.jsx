@@ -34,7 +34,7 @@ const Header = ({ currentUser, series }) => (
       </Nav>
       {currentUser ? (
         <NavDropdown
-          title={`Signed in as ${currentUser.email}`}
+          title={`Signed in as: ${currentUser.username}`}
           key="profile-drop"
           id="profile-drop"
         >

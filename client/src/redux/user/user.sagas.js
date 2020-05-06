@@ -14,12 +14,7 @@ export function* isUserAuthenticated() {
   try {
     const user = yield getCurrentUser();
     if (!user) return;
-    yield put(
-      signInSuccess({
-        id: user._id,
-        email: user.email
-      })
-    );
+    yield put(signInSuccess(user));
   } catch (error) {
     yield put(signInFailure(error));
   }
