@@ -10,3 +10,26 @@
     }
   }
 }
+
+#profile-drop {
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+#profile-drop + .dropdown-menu {
+  right: 0;
+  left: auto;
+
+  #signout {
+    border: 1px solid #2c2f33;
+    &:hover {
+      background-color: #2c2f33;
+      color: #dc3545;
+      border-top: 1px solid #dc3545;
+      border-bottom: 1px solid #dc3545;
+    }
+  }
+}

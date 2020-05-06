@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
 
 import DiscordLogin from "../discord-signin/discord-signin.component";
 
@@ -34,9 +33,15 @@ const Header = ({ currentUser, series }) => (
         <Nav.Link href="/test2">Test2</Nav.Link>
       </Nav>
       {currentUser ? (
-        <Button href="/api/logout" variant="outline-danger">
-          Sign out
-        </Button>
+        <NavDropdown
+          title={`Signed in as ${currentUser.email}`}
+          key="profile-drop"
+          id="profile-drop"
+        >
+          <NavDropdown.Item href="/auth/signout" id="signout">
+            Sign out
+          </NavDropdown.Item>
+        </NavDropdown>
       ) : (
         <Nav.Link href="/auth/discord">
           <DiscordLogin />

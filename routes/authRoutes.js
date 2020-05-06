@@ -13,7 +13,7 @@ module.exports = (app) => {
     }
   );
 
-  app.get("/api/logout", (req, res) => {
+  app.get("/auth/signout", (req, res) => {
     req.logout();
     res.redirect("/");
   });
