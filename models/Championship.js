@@ -2,19 +2,22 @@ const mongoose = require("mongoose");
 
 const championshipSchema = new mongoose.Schema({
   series: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Series" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Series",
     required: true,
   },
   game: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Game" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Game",
     required: true,
   },
   region: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Region" },
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Region",
   },
   tier: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Tier" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tier",
     required: true,
   },
   teams: {

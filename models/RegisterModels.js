@@ -1,0 +1,11 @@
+require("./Car");
+require("./Championship");
+require("./Game");
+require("./Race");
+require("./Region");
+require("./Result");
+require("./Series");
+require("./Team");
+require("./Tier");
+require("./Track");
+require("./User");

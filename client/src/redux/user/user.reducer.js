@@ -1,8 +1,13 @@
 import UserActionTypes from "./user.types";
 
 const INITIAL_STATE = {
-  currentUser: null,
-  error: null
+  currentUser: {
+    _id: null,
+    role: null,
+    seriesPermissions: [],
+    championshipPermissions: [],
+  },
+  error: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +15,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {
         ...state,
-        currentUser: action.payload
+        // roles and permissions contained for harmless display purposes only, backend needs to re-verify user info from cookie
+        currentUser: action.payload,
+        error: null,
       };
     default:
       return state;

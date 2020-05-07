@@ -1,6 +1,7 @@
 import UiActionTypes from "./ui.types";
 
 const INITIAL_STATE = {
+  roles: {},
   series: null,
   championships: null,
   error: null,
@@ -11,7 +12,12 @@ const uiReducer = (state = INITIAL_STATE, action) => {
     case UiActionTypes.LOAD_UI_DATA_SUCCESS:
       return {
         ...state,
-        series: action.payload,
+        ...action.payload,
+      };
+    case UiActionTypes.LOAD_UI_DATA_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

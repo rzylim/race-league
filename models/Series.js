@@ -17,6 +17,6 @@ const seriesSchema = new mongoose.Schema({
     unique: true,
   },
 });
-const Series = mongoose.model("series", seriesSchema);
+const Series = mongoose.model("Series", seriesSchema);
 
 module.exports = { seriesSchema, Series };

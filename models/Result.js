@@ -14,27 +14,33 @@ const resultSchema = new mongoose.Schema({
     required: true,
   },
   _championship: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Championship" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Championship",
     required: true,
   },
   _race: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Race" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Race",
     required: true,
   },
   _track: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Track" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Track",
     required: true,
   },
   _driver: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   _car: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Car" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Car",
     required: true,
   },
   _team: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Team",
     required: true,
   },
   qualifying_time: {

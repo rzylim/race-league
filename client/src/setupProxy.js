@@ -16,7 +16,7 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/api/series",
+    "/api/uidata",
     createProxyMiddleware({
       target: "http://localhost:5000/",
       changeOrigin: true,

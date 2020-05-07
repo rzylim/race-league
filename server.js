@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 mongoose.connect(process.env.MONGO_URI);
+require("./models/RegisterModels");
 require("./services/passport");
 
 const app = express();

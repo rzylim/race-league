@@ -6,7 +6,9 @@ import { checkUserSession } from "./redux/user/user.actions";
 import { loadUiData } from "./redux/ui/ui.actions";
 
 import Header from "./components/header/header.component";
-const Landing = () => <h2>Landing</h2>;
+import LandingPage from "./pages/landing/landing.component";
+import DashboardPage from "./pages/dashboard/dashboard.component";
+import TestPage from "./pages/test/test.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
   useEffect(() => {
@@ -18,7 +20,9 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/dashboard" component={DashboardPage} />
+        <Route exact path="/test" component={TestPage} />
         {/* admin role, test role (that can only create but not delete seasons) */}
       </Switch>
     </div>

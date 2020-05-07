@@ -22,7 +22,16 @@ const userSchema = new mongoose.Schema({
   nationality: {
     type: String,
   },
+  role: {
+    type: String,
+  },
+  seriesPermissions: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Series" }],
+  },
+  championshipPermissions: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Championship" }],
+  },
 });
-const User = mongoose.model("users", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = { userSchema, User };

@@ -1,10 +1,14 @@
 const { Series } = require("../models/Series");
+const { Championship } = require("../models/Championship");
+const { Role } = require("../models/Role");
 
 module.exports = (app) => {
-  app.get("/api/series", async (req, res) => {
+  app.get("/api/uidata", async (req, res) => {
     try {
       const series = await Series.find({});
-      res.send(series);
+      const championships = await Championship.find({});
+      const roles = await Role.find({});
+      res.send({ series, championships, roles });
     } catch (error) {
       res.send(error);
     }
