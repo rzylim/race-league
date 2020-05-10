@@ -5,9 +5,13 @@ import { connect } from "react-redux";
 import { checkUserSession } from "./redux/user/user.actions";
 import { loadUiData } from "./redux/ui/ui.actions";
 
+import Container from "react-bootstrap/Container";
+
 import Header from "./components/header/header.component";
+
 import LandingPage from "./pages/landing/landing.component";
 import DashboardPage from "./pages/dashboard/dashboard.component";
+import ChampionshipsPage from "./pages/championships/championships.component";
 import TestPage from "./pages/test/test.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
@@ -19,12 +23,15 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
   return (
     <div>
       <Header />
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/dashboard" component={DashboardPage} />
-        <Route exact path="/test" component={TestPage} />
-        {/* admin role, test role (that can only create but not delete seasons) */}
-      </Switch>
+      <Container>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/dashboard" component={DashboardPage} />
+          <Route exact path="/test" component={TestPage} />
+          <Route path="/:s/championships" component={ChampionshipsPage} />
+          {/* admin role, test role (that can only create but not delete seasons) */}
+        </Switch>
+      </Container>
     </div>
   );
 };

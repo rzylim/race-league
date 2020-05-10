@@ -1,12 +1,7 @@
 import UserActionTypes from "./user.types";
 
 const INITIAL_STATE = {
-  currentUser: {
-    _id: null,
-    role: null,
-    seriesPermissions: [],
-    championshipPermissions: [],
-  },
+  currentUser: null,
   error: null,
 };
 

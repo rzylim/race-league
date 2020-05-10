@@ -1,11 +1,15 @@
+:root {
+  --gray-dropdown: #2c2f33;
+}
+
 .dropdown-menu {
-  background-color: #2c2f33;
+  background-color: var(--gray-dropdown);
 
   .dropdown-item {
     color: rgba(255, 255, 255, 0.5);
 
     &:hover {
-      background-color: #343a40;
+      background-color: var(--dark);
       color: rgba(255, 255, 255, 0.75);
     }
   }
@@ -24,12 +28,12 @@
   left: auto;
 
   #signout {
-    border: 1px solid #2c2f33;
+    border: 1px solid var(--gray-dropdown);
     &:hover {
-      background-color: #2c2f33;
-      color: #dc3545;
-      border-top: 1px solid #dc3545;
-      border-bottom: 1px solid #dc3545;
+      background-color: var(--gray-dropdown);
+      color: var(--red);
+      border-top: 1px solid var(--red);
+      border-bottom: 1px solid var(--red);
     }
   }
 }

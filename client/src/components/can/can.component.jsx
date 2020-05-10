@@ -5,16 +5,24 @@ import { checkStatic, checkDynamic } from "../../authorisation/authorisation";
 
 // on contains seriesId and/ or championshipId
 // withPermissions contains seriesPermissions and/ or championshipPermissions
-const Can = ({ roles, role, perform, on, withPermissions, yes, no }) =>
-  check(
-    roles,
-    role,
+const Can = ({ uiData, currentUser, perform, on, yes, no }) => {
+  if (!uiData || !currentUser) {
+    return no();
+  }
+
+  return check(
+    uiData.roles,
+    currentUser.role,
     perform, // array of permissions set for the component
     on,
-    withPermissions
+    {
+      seriesPermissions: uiData.seriesPermissions,
+      championshipPermissions: uiData.championshipPermissions,
+    }
   )
     ? yes()
     : no();
+};
 
 const check = (roles, role, perform, on, withPermissions) => {
   const rolePermissions = roles[role];
@@ -36,15 +44,9 @@ const check = (roles, role, perform, on, withPermissions) => {
   );
 };
 
-const mapStateToProps = ({
-  ui: { roles },
-  user: {
-    currentUser: { role, seriesPermissions, championshipPermissions },
-  },
-}) => ({
-  roles,
-  role: role,
-  withPermissions: { seriesPermissions, championshipPermissions },
+const mapStateToProps = ({ ui: { uiData }, user: { currentUser } }) => ({
+  uiData,
+  currentUser,
 });
 
 export default connect(mapStateToProps)(Can);

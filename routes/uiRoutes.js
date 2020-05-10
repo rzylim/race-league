@@ -6,7 +6,9 @@ module.exports = (app) => {
   app.get("/api/uidata", async (req, res) => {
     try {
       const series = await Series.find({});
-      const championships = await Championship.find({});
+      const championships = await Championship.find({})
+        .populate("series")
+        .populate("game");
       const roles = await Role.find({});
       res.send({ series, championships, roles });
     } catch (error) {
