@@ -1,13 +1,50 @@
 .championship-container {
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-bottom: 25px;
 
   .display-item {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(4, 25%);
     width: 200px;
     height: 200px;
-    // background-color: grey;
     border: 1px solid black;
+    color: white;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .name {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: row;
+      padding: 0px 0px 0px 15px;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .region {
+      grid-column: 3 / span 2;
+      grid-row: 4;
+      display: flex;
+      flex-direction: row;
+      padding: 0px 15px 0px 0px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .tier {
+      grid-column: 1 / span 2;
+      grid-row: 4;
+      display: flex;
+      flex-direction: row;
+      padding: 0px 0px 0px 15px;
+      justify-content: flex-start;
+      align-items: center;
+    }
   }
 }

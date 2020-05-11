@@ -17,7 +17,7 @@ const Header = ({ currentUser, uiData }) => (
   <Navbar bg="dark" variant="dark" fixed="sticky-top" expand="md">
     <Container>
       <Navbar.Brand as={Link} to="/">
-        Race League
+        RaceLeague
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

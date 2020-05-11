@@ -8,7 +8,11 @@ import "./display-item.styles.scss";
 const DisplayItem = ({ num }) => {
   return (
     <Col as={Link} to="/" className="championship-container">
-      <div className="display-item">{num}</div>
+      <div className="display-item">
+        <div className="name">Name</div>
+        <div className="region">Oceania</div>
+        <div className="tier">Tier 1</div>
+      </div>
     </Col>
   );
 };
