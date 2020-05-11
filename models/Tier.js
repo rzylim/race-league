@@ -7,6 +7,9 @@ const tierSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  colour: {
+    type: String,
+  },
 });
 const Tier = mongoose.model("Tier", tierSchema);
 

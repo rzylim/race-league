@@ -8,7 +8,9 @@ module.exports = (app) => {
       const series = await Series.find({});
       const championships = await Championship.find({})
         .populate("series")
-        .populate("game");
+        .populate("game")
+        .populate("region")
+        .populate("tier");
       const roles = await Role.find({});
       res.send({ series, championships, roles });
     } catch (error) {

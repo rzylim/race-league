@@ -1,0 +1,27 @@
+.display-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .display-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border: 2px dashed black;
+    font-size: 100px;
+    padding-bottom: 25px;
+    color: white;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
