@@ -3,7 +3,7 @@
 }
 
 .dropdown-menu {
-  background-color: var(--gray-dropdown);
+  background-color: var(--gray-dropdown) !important;
 
   .dropdown-item {
     color: rgba(255, 255, 255, 0.5);
