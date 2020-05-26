@@ -42,10 +42,10 @@ const ChampionshipsPage = ({
   uiData,
 }) => {
   if (!uiData) return <div />;
-  return <ChampionshipsPageReal s={s} uiData={uiData} />;
+  return <ChampionshipsPageCore s={s} uiData={uiData} />;
 };
 
-const ChampionshipsPageReal = ({ s, uiData }) => {
+const ChampionshipsPageCore = ({ s, uiData }) => {
   let initialState = {
     series: uiData.series.reduce(initialStateReducer, {}),
     region: uiData.regions.reduce(initialStateReducer, {}),
@@ -140,6 +140,16 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
           </Accordian.Toggle>
           <Accordian.Collapse eventKey="0">
             <Card.Body>
+              <Row className="search-row">
+                <Col>
+                  <Form.Label>Search</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    onChange={handleChange.search}
+                  />
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <Form.Label>Series</Form.Label>
@@ -214,16 +224,6 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
                         onChange={handleChange.game}
                       />
                     ))}
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Form.Label>Search</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    onChange={handleChange.search}
-                  />
                 </Col>
               </Row>
             </Card.Body>

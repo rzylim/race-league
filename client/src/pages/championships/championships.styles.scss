@@ -14,6 +14,9 @@
       }
       .card-body {
         opacity: 0.7;
+        .row:not(:last-child) {
+          padding-bottom: 1.25rem;
+        }
       }
     }
   }
