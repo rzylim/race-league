@@ -51,6 +51,7 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
     region: uiData.regions.reduce(initialStateReducer, {}),
     tier: uiData.tiers.reduce(initialStateReducer, {}),
     game: uiData.games.reduce(initialStateReducer, {}),
+    search: "",
   };
 
   const { selection, setFilter, handleChange } = useFilterState(initialState);
@@ -124,6 +125,7 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
       newGameSet,
       "hidden"
     );
+    newFilterSelection.search = selection.search;
 
     setFilter(newFilterSelection);
   }
@@ -214,6 +216,16 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
                     ))}
                 </Col>
               </Row>
+              <Row>
+                <Col>
+                  <Form.Label>Search</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    onChange={handleChange.search}
+                  />
+                </Col>
+              </Row>
             </Card.Body>
           </Accordian.Collapse>
         </Card>
@@ -222,16 +234,21 @@ const ChampionshipsPageReal = ({ s, uiData }) => {
         {s && thisSeries ? <New series={thisSeries.link} /> : null}
         {uiData.championships
           .filter(
-            ({ series, region, tier, game }) =>
+            ({ name, abbreviation, series, region, tier, game }) =>
               selection.series[series.name] &&
               selection.region[region.name] &&
               selection.tier[tier.name] &&
-              selection.game[game.name]
+              selection.game[game.name] &&
+              (name.toLowerCase().includes(selection.search.toLowerCase()) ||
+                abbreviation
+                  .toLowerCase()
+                  .includes(selection.search.toLowerCase()))
           )
-          .map(({ _id, series, game, region, tier }, ind) => (
+          .map(({ _id, abbreviation, series, game, region, tier }, ind) => (
             <ChampionshipItem
               chId={_id}
               key={_id}
+              abbreviation={abbreviation}
               series={series.name}
               game={game.name}
               region={region.name}

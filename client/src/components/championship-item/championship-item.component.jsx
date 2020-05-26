@@ -5,7 +5,15 @@ import Col from "react-bootstrap/Col";
 
 import "./championship-item.styles.scss";
 
-const ChampionshipItem = ({ chId, series, game, region, tier, colour }) => {
+const ChampionshipItem = ({
+  chId,
+  abbreviation,
+  series,
+  game,
+  region,
+  tier,
+  colour,
+}) => {
   return (
     <Col
       as={Link}
@@ -13,6 +21,7 @@ const ChampionshipItem = ({ chId, series, game, region, tier, colour }) => {
       className="display-container"
     >
       <div className="display-grid">
+        <div className="abbrv">{abbreviation}</div>
         <div className="game">{game}</div>
         <div className="region">{region}</div>
         <div className="tier" style={{ color: `${colour}` }}>

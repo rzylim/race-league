@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 
 const championshipSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  abbreviation: {
+    type: String,
+    required: true,
+  },
   series: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Series",

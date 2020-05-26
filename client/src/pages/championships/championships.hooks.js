@@ -40,6 +40,12 @@ export const useFilterState = (initialState) => {
       },
     });
   };
+  const handleSearchChange = (event) => {
+    setFilter({
+      ...filterSelection,
+      search: event.target.value,
+    });
+  };
 
   return {
     selection: {
@@ -48,6 +54,7 @@ export const useFilterState = (initialState) => {
       region: filterSelection.region,
       tier: filterSelection.tier,
       game: filterSelection.game,
+      search: filterSelection.search,
     },
     setFilter,
     handleChange: {
@@ -55,6 +62,7 @@ export const useFilterState = (initialState) => {
       region: handleRegionChange,
       tier: handleTierChange,
       game: handleGameChange,
+      search: handleSearchChange,
     },
   };
 };
