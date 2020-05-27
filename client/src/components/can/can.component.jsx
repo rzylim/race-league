@@ -16,8 +16,8 @@ const Can = ({ uiData, currentUser, perform, on, yes, no }) => {
     perform, // array of permissions set for the component
     on,
     {
-      seriesPermissions: uiData.seriesPermissions,
-      championshipPermissions: uiData.championshipPermissions,
+      seriesPermissions: currentUser.seriesPermissions,
+      championshipPermissions: currentUser.championshipPermissions,
     }
   )
     ? yes()

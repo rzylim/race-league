@@ -20,7 +20,7 @@ const permissions = {
     "series:edit": ({ seriesPermissions, seriesId }) => {
       if (!seriesPermissions || !seriesId) return false;
 
-      return seriesPermissions.contains(seriesId);
+      return seriesPermissions.includes(seriesId);
     },
     // create, edit, delete races
     "championships:edit": ({
@@ -32,10 +32,10 @@ const permissions = {
       if (!seriesPermissions || !seriesId) {
         if (!championshipPermissions || !championshipId) return false;
         // check if user has permission to edit the championship
-        return championshipPermissions.contains(championshipId);
+        return championshipPermissions.includes(championshipId);
       } else {
         // check if user has permission to edit the series
-        return seriesPermissions.contains(seriesId);
+        return seriesPermissions.includes(seriesId);
       }
     },
   },

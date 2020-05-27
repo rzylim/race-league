@@ -11,6 +11,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 
 import ChampionshipItem from "../../components/championship-item/championship-item.component";
+import Can from "../../components/can/can.component";
 import New from "../../components/new/new.component";
 
 import { useFilterState } from "./championships.hooks.js";
@@ -231,7 +232,14 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
         </Card>
       </Accordian>
       <Row>
-        {s && thisSeries ? <New series={thisSeries.link} /> : null}
+        {s && thisSeries ? (
+          <Can
+            perform={["series:edit"]}
+            on={{ seriesId: thisSeries._id }}
+            yes={() => <New series={thisSeries.link} />}
+            no={() => null}
+          />
+        ) : null}
         {uiData.championships
           .filter(
             ({ name, abbreviation, series, region, tier, game }) =>
