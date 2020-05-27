@@ -11,7 +11,7 @@ const New = ({ series, championship }) => {
     ? `/${series}/championships/${championship}/races/new`
     : `/${series}/championships/new`;
   return (
-    <Col className="display-container">
+    <Col xs={6} md={4} lg={3} className="display-container">
       <Container as={Link} to={link} className="display-item">
         +
       </Container>

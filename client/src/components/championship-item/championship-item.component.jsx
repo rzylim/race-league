@@ -16,7 +16,7 @@ const ChampionshipItem = ({
   colour,
 }) => {
   return (
-    <Col className="display-container">
+    <Col xs={6} md={4} lg={3} className="display-container">
       <Container
         as={Link}
         to={`/${seriesLink}/championships/${chId}`}
