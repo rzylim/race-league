@@ -249,7 +249,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
               chId={_id}
               key={_id}
               abbreviation={abbreviation}
-              series={series.name}
+              seriesLink={series.link}
               game={game.name}
               region={region.name}
               tier={tier.name}

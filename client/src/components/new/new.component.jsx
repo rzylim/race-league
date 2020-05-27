@@ -2,6 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 import "./new.styles.scss";
 
@@ -10,8 +11,10 @@ const New = ({ series, championship }) => {
     ? `/${series}/championships/${championship}/races/new`
     : `/${series}/championships/new`;
   return (
-    <Col as={Link} to={link} className="display-container">
-      <div className="display-item">+</div>
+    <Col className="display-container">
+      <Container as={Link} to={link} className="display-item">
+        +
+      </Container>
     </Col>
   );
 };

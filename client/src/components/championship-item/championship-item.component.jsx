@@ -2,32 +2,33 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 import "./championship-item.styles.scss";
 
 const ChampionshipItem = ({
   chId,
   abbreviation,
-  series,
+  seriesLink,
   game,
   region,
   tier,
   colour,
 }) => {
   return (
-    <Col
-      as={Link}
-      to={`/${series}/championships/${chId}`}
-      className="display-container"
-    >
-      <div className="display-grid">
+    <Col className="display-container">
+      <Container
+        as={Link}
+        to={`/${seriesLink}/championships/${chId}`}
+        className="display-grid"
+      >
         <div className="abbrv">{abbreviation}</div>
         <div className="game">{game}</div>
         <div className="region">{region}</div>
         <div className="tier" style={{ color: `${colour}` }}>
           Tier {tier}
         </div>
-      </div>
+      </Container>
     </Col>
   );
 };
