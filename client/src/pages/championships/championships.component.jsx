@@ -236,7 +236,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
           <Can
             perform={["series:edit"]}
             on={{ seriesId: thisSeries._id }}
-            yes={() => <New series={thisSeries.link} />}
+            yes={() => <New to={`/${thisSeries.link}/championships/new`} />}
             no={() => null}
           />
         ) : null}

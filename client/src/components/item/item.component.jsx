@@ -7,8 +7,8 @@ import Container from "react-bootstrap/Container";
 import "./item.styles.scss";
 
 const Item = ({ children, to, className }) => (
-  <Col xs={6} md={4} lg={3} className={className + " display-container"}>
-    <Container as={Link} to={to} className="display-grid">
+  <Col xs={6} md={4} lg={3} className="display-container">
+    <Container as={Link} to={to} className={"display-grid " + className}>
       {children}
     </Container>
   </Col>
