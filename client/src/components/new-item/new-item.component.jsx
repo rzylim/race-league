@@ -2,7 +2,7 @@ import React from "react";
 
 import Item from "../item/item.component";
 
-import "./new.styles.scss";
+import "./new-item.styles.scss";
 
 const New = ({ to }) => (
   <Item className="new-item" to={to}>
