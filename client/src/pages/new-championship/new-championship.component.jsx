@@ -45,7 +45,7 @@ const NewChampionshipPage = ({
 
 const NewChampionshipPageCore = ({ thisSeries, uiData }) => (
   <Container id="new-championship-page">
-    <h2 className="title">New Championship</h2>
+    <h2>New Championship</h2>
     <Formik
       initialValues={{ name: "", abbreviation: "", email: "" }}
       validationSchema={Yup.object({

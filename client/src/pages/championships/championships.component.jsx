@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 
 import { isEqual } from "lodash";
 
+import Container from "react-bootstrap/Container";
 import Accordian from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -133,7 +133,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
 
   return (
     <Container id="championships-page">
-      <h2 className="title">Championships</h2>
+      <h2>Championships</h2>
       <Accordian>
         <Card>
           <Accordian.Toggle as={Card.Header} eventKey="0">
