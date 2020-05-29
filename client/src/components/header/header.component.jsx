@@ -43,9 +43,6 @@ const Header = ({ currentUser, uiData }) => (
             )}
             no={() => null}
           />
-          <Nav.Link as={Link} to="/test">
-            Test
-          </Nav.Link>
         </Nav>
         {currentUser ? (
           <NavDropdown

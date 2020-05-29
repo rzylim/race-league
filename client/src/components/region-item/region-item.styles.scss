@@ -1,0 +1,11 @@
+.region-item {
+  .name {
+    grid-column: 1 / span 4;
+    grid-row: 4;
+    overflow-wrap: break-word;
+    display: flex;
+    padding: 0px 15px 0px 15px;
+    align-items: center;
+    font-weight: 300;
+  }
+}

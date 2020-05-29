@@ -12,7 +12,7 @@ import Form from "react-bootstrap/Form";
 
 import ChampionshipItem from "../../components/championship-item/championship-item.component";
 import Can from "../../components/can/can.component";
-import New from "../../components/new/new.component";
+import NewItem from "../../components/new-item/new-item.component";
 
 import { useFilterState } from "./championships.hooks.js";
 
@@ -236,7 +236,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
           <Can
             perform={["series:edit"]}
             on={{ seriesId: thisSeries._id }}
-            yes={() => <New to={`/${thisSeries.link}/championships/new`} />}
+            yes={() => <NewItem to={`/${thisSeries.link}/championships/new`} />}
             no={() => null}
           />
         ) : null}

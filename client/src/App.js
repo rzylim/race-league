@@ -14,7 +14,6 @@ import DashboardPage from "./pages/dashboard/dashboard.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
 import NewChampionshipPage from "./pages/new-championship/new-championship.component";
-import TestPage from "./pages/test/test.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
   useEffect(() => {
@@ -29,7 +28,6 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/dashboard" component={DashboardPage} />
-          <Route exact path="/test" component={TestPage} />
           <Route path="/:s/championships/new" component={NewChampionshipPage} />
           <Route path="/:s/championships/:c" component={ChampionshipPage} />
           <Route path="/:s/championships" component={ChampionshipsPage} />
