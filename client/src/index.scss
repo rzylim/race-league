@@ -22,3 +22,16 @@ html {
   height: 100%;
   background-color: var(--gray-background);
 }
+
+h2 {
+  font-size: 38px;
+  margin: 20px 0;
+}
+
+.form-control {
+  background-color: gainsboro;
+
+  &:focus {
+    background-color: gainsboro;
+  }
+}
