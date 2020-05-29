@@ -132,7 +132,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
   }
 
   return (
-    <Container className="championships-page">
+    <Container id="championships-page">
       <h2 className="title">Championships</h2>
       <Accordian>
         <Card>
