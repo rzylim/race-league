@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const regionSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     unique: true,
+    minlength: [2, "Must be 2 characters or more"],
+    maxlength: [15, "Must be 15 characters or less"],
   },
 });
 const Region = mongoose.model("Region", regionSchema);

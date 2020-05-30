@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const carSchema = new mongoose.Schema({
   model: {
     type: String,
+    maxlength: [20, "Must be 20 characters or less"],
     required: true,
   },
   make: {

@@ -37,7 +37,7 @@ const DashboardPageCore = ({ uiData }) => (
         <Accordian.Collapse eventKey="series">
           <Card.Body>
             <Row>
-              {<NewItem to="/series/new" />}
+              {<NewItem to="/dashboard/series/new" />}
               {uiData.series.map(({ _id, ...otherProps }) => (
                 <SeriesItem key={_id} seriesId={_id} {...otherProps} />
               ))}
@@ -52,7 +52,7 @@ const DashboardPageCore = ({ uiData }) => (
         <Accordian.Collapse eventKey="regions">
           <Card.Body>
             <Row>
-              {<NewItem to="/regions/new" />}
+              {<NewItem to="/dashboard/region/new" />}
               {uiData.regions.map(({ _id, ...otherProps }) => (
                 <RegionItem key={_id} regionId={_id} {...otherProps} />
               ))}
@@ -67,7 +67,7 @@ const DashboardPageCore = ({ uiData }) => (
         <Accordian.Collapse eventKey="tiers">
           <Card.Body>
             <Row>
-              {<NewItem to="/tiers/new" />}
+              {<NewItem to="/dashboard/tier/new" />}
               {uiData.tiers.map(({ _id, ...otherProps }) => (
                 <TierItem key={_id} tierId={_id} {...otherProps} />
               ))}
@@ -82,7 +82,7 @@ const DashboardPageCore = ({ uiData }) => (
         <Accordian.Collapse eventKey="games">
           <Card.Body>
             <Row>
-              {<NewItem to="/games/new" />}
+              {<NewItem to="/dashboard/game/new" />}
               {uiData.games.map(({ _id, ...otherProps }) => (
                 <GameItem key={_id} gameId={_id} {...otherProps} />
               ))}
@@ -97,7 +97,7 @@ const DashboardPageCore = ({ uiData }) => (
         <Accordian.Collapse eventKey="cars">
           <Card.Body>
             <Row>
-              {<NewItem to="/cars/new" />}
+              {<NewItem to="/dashboard/car/new" />}
               {uiData.cars.map(({ _id, ...otherProps }) => (
                 <CarItem key={_id} carId={_id} {...otherProps} />
               ))}
@@ -111,9 +111,8 @@ const DashboardPageCore = ({ uiData }) => (
         </Accordian.Toggle>
         <Accordian.Collapse eventKey="tracks">
           <Card.Body>
-            {" "}
             <Row>
-              {<NewItem to="/tracks/new" />}
+              {<NewItem to="/dashboard/track/new" />}
               {uiData.tracks.map(({ _id, ...otherProps }) => (
                 <TrackItem key={_id} trackId={_id} {...otherProps} />
               ))}

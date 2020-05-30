@@ -4,16 +4,14 @@ const mongoose = require("mongoose");
 const seriesSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    minlength: [2, "Must be 2 characters or more"],
+    maxlength: [15, "Must be 15 characters or more"],
     unique: true,
-  },
-  games: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-    required: true,
   },
   link: {
     type: String,
-    required: true,
+    minlength: [2, "Must be 2 characters or more"],
+    maxlength: [15, "Must be 15 characters or more"],
     unique: true,
   },
 });

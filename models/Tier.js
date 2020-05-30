@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const tierSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     unique: true,
+    maxlength: [15, "Must be 15 characters or less"],
   },
   colour: {
     type: String,

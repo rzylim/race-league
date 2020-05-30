@@ -5,7 +5,7 @@ import Item from "../item/item.component";
 import "./region-item.styles.scss";
 
 const RegionItem = ({ regionId, name }) => (
-  <Item className="region-item" to={`/regions/${regionId}`}>
+  <Item className="region-item" to={`/dashboard/region/${regionId}`}>
     <div className="name">{name}</div>
   </Item>
 );

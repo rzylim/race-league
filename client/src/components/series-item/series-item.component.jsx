@@ -5,7 +5,7 @@ import Item from "../item/item.component";
 import "./series-item.styles.scss";
 
 const SeriesItem = ({ seriesId, name }) => (
-  <Item className="series-item" to={`/series/${seriesId}`}>
+  <Item className="series-item" to={`/dashboard/series/${seriesId}`}>
     <div className="name">{name}</div>
   </Item>
 );

@@ -47,7 +47,7 @@ const NewChampionshipPageCore = ({ thisSeries, uiData }) => (
   <Container id="new-championship-page">
     <h2>New Championship</h2>
     <Formik
-      initialValues={{ name: "", abbreviation: "", email: "" }}
+      initialValues={{ name: "", abbreviation: "" }}
       validationSchema={Yup.object({
         name: Yup.string()
           .max(60, "Must be 60 characters or less")

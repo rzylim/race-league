@@ -14,6 +14,8 @@ import DashboardPage from "./pages/dashboard/dashboard.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
 import NewChampionshipPage from "./pages/new-championship/new-championship.component";
+import NewRegionPage from "./pages/new-region/new-region.component";
+import NewItemPage from "./pages/new-item/new-item.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
   useEffect(() => {
@@ -28,9 +30,11 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/dashboard" component={DashboardPage} />
+          <Route path="/dashboard/:item/new" component={NewItemPage} />
           <Route path="/:s/championships/new" component={NewChampionshipPage} />
           <Route path="/:s/championships/:c" component={ChampionshipPage} />
           <Route path="/:s/championships" component={ChampionshipsPage} />
+          <Route path="/region/new" component={NewRegionPage} />
           {/* admin role, test role (that can only create but not delete seasons) */}
         </Switch>
       </Container>

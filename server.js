@@ -13,8 +13,11 @@ const mongoose = require("mongoose");
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
 mongoose.connect(process.env.MONGO_URI);
-require("./models/RegisterModels");
+require("./models/registerModels");
 require("./services/passport");
+
+// for role authorisation, sets global.roles asynchronously
+require("./services/roles");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,6 +38,7 @@ app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 require("./routes/uiRoutes")(app);
+require("./routes/crudRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(compression());

@@ -1,4 +1,5 @@
-const permissions = {
+// module.exports used so that it can be used in Nodejs as well.
+module.exports = {
   // across-the-board permissions
   static: [
     "series:view",
@@ -13,6 +14,7 @@ const permissions = {
     "users:viewSelf",
     "users:permissions",
     "dashboard:view",
+    "dashboard:edit",
   ],
   // specific permissions
   dynamic: {
@@ -41,4 +43,4 @@ const permissions = {
   },
 };
 
-export default permissions;
+// export default permissions;
