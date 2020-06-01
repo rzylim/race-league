@@ -4,8 +4,11 @@
     grid-row: 4;
     overflow-wrap: break-word;
     display: flex;
-    padding: 0px 15px 0px 15px;
-    align-items: center;
+    flex-direction: row;
+    padding: 0px 15px 10px 15px;
+    justify-content: flex-start;
+    align-items: flex-end;
+    text-align: left;
     font-weight: 300;
   }
 }
