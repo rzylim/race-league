@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./region-item.styles.scss";
 
-const RegionItem = ({ regionId, name }) => (
-  <Item className="region-item" to={`/dashboard/region/${regionId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const RegionItem = ({ name, ...otherProps }) => (
+  <Item className="region-item" {...otherProps}>
     <div className="name">{name}</div>
   </Item>
 );

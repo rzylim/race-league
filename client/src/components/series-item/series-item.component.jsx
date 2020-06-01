@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./series-item.styles.scss";
 
-const SeriesItem = ({ seriesId, name }) => (
-  <Item className="series-item" to={`/dashboard/series/${seriesId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const SeriesItem = ({ name, ...otherProps }) => (
+  <Item className="series-item" {...otherProps}>
     <div className="name">{name}</div>
   </Item>
 );

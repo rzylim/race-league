@@ -20,7 +20,7 @@ const NewChampionshipPage = ({
   },
   uiData,
 }) => {
-  if (!uiData) return <div />;
+  if (!uiData) return null;
 
   // check series type
   const thisSeries = uiData.series.find((e) => e.link === s);

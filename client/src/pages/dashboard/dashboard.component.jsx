@@ -39,7 +39,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/series/new" />}
               {uiData.series.map(({ _id, ...otherProps }) => (
-                <SeriesItem key={_id} seriesId={_id} {...otherProps} />
+                <SeriesItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/series/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>
@@ -54,7 +59,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/region/new" />}
               {uiData.regions.map(({ _id, ...otherProps }) => (
-                <RegionItem key={_id} regionId={_id} {...otherProps} />
+                <RegionItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/region/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>
@@ -69,7 +79,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/tier/new" />}
               {uiData.tiers.map(({ _id, ...otherProps }) => (
-                <TierItem key={_id} tierId={_id} {...otherProps} />
+                <TierItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/tier/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>
@@ -84,7 +99,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/game/new" />}
               {uiData.games.map(({ _id, ...otherProps }) => (
-                <GameItem key={_id} gameId={_id} {...otherProps} />
+                <GameItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/game/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>
@@ -99,7 +119,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/car/new" />}
               {uiData.cars.map(({ _id, ...otherProps }) => (
-                <CarItem key={_id} carId={_id} {...otherProps} />
+                <CarItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/car/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>
@@ -114,7 +139,12 @@ const DashboardPageCore = ({ uiData }) => (
             <Row>
               {<NewItem to="/dashboard/track/new" />}
               {uiData.tracks.map(({ _id, ...otherProps }) => (
-                <TrackItem key={_id} trackId={_id} {...otherProps} />
+                <TrackItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/track/${_id}`}
+                />
               ))}
             </Row>
           </Card.Body>

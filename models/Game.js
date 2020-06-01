@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const gameSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    maxlength: [20, "Must be 20 characters or less"],
+    unique: true,
   },
   cars: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Car" }],

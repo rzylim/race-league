@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./tier-item.styles.scss";
 
-const TierItem = ({ tierId, name, colour }) => (
-  <Item className="tier-item" to={`/dashboard/tier/${tierId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const TierItem = ({ _id, name, colour, ...otherProps }) => (
+  <Item className="tier-item" {...otherProps}>
     <div className="name" style={{ color: `${colour}` }}>
       {name}
     </div>

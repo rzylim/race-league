@@ -6,7 +6,10 @@ import { Form as BSForm, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
 import FieldSelect from "../../components/field-select/field-select.component";
-import FieldMultiSelect from "../../components/field-multiselect/field-multiselect.component";
+import FieldEasyMultiSelect from "../../components/field-easy-multi-select/field-easy-multi-select.component";
+
+import CarItem from "../../components/car-item/car-item.component";
+import TrackItem from "../../components/track-item/track-item.component";
 
 import { yearRange } from "../../utilities/yearRange";
 
@@ -47,7 +50,6 @@ export const itemDict = {
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-
         <Button variant="primary" type="submit">
           Submit
         </Button>
@@ -127,11 +129,12 @@ export const itemDict = {
     modelName: "Game",
     plural: "games",
     relatedCollections: ["cars", "tracks"],
-    initialValues: { name: "", year: [] },
-    validationSchema: () =>
+    initialValues: { name: "", cars: new Set(), tracks: new Set() },
+    validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
           .max(20, "Must be 20 characters or less")
+          .notOneOf(currItems.map(({ name }) => name))
           .required("Required"),
       }),
     form: ({ cars, tracks }) => (
@@ -141,37 +144,21 @@ export const itemDict = {
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
             <BSForm.Control as={Field} name="name" type="text" />
             <BSForm.Text className="text-danger">
-              <ErrorMessage name="model" />
+              <ErrorMessage name="name" />
             </BSForm.Text>
           </BSForm.Group>
-          <BSForm.Group as={Col} xs={12} md={6}>
-            <BSForm.Label htmlFor="cars">Cars</BSForm.Label>
-            <BSForm.Control
-              as={FieldMultiSelect}
-              name="cars"
-              options={cars.map(({ _id, year, make, model }) => ({
-                value: _id,
-                text: `${year} ${make} ${model}`,
-              }))}
-            />
-            <BSForm.Text className="text-danger">
-              <ErrorMessage name="cars" />
-            </BSForm.Text>
-          </BSForm.Group>
-          <BSForm.Group as={Col} xs={12} md={6}>
-            <BSForm.Label htmlFor="tracks">Tracks</BSForm.Label>
-            <BSForm.Control
-              as={FieldMultiSelect}
-              name="tracks"
-              options={tracks.map(({ _id, name, year }) => ({
-                value: _id,
-                text: `${year} ${name}`,
-              }))}
-            />
-            <BSForm.Text className="text-danger">
-              <ErrorMessage name="cars" />
-            </BSForm.Text>
-          </BSForm.Group>
+          <FieldEasyMultiSelect
+            name="cars"
+            label="Cars"
+            options={cars}
+            Component={CarItem}
+          />
+          <FieldEasyMultiSelect
+            name="tracks"
+            label="Tracks"
+            options={tracks}
+            Component={TrackItem}
+          />
         </BSForm.Row>
 
         <Button variant="primary" type="submit">

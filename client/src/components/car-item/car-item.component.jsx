@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./car-item.styles.scss";
 
-const CarItem = ({ carId, make, model, year }) => (
-  <Item className="car-item" to={`/cars/${carId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const CarItem = ({ make, model, year, ...otherProps }) => (
+  <Item className="car-item" {...otherProps}>
     <div className="make">{make}</div>
     <div className="model">{model}</div>
     <div className="year">{year}</div>

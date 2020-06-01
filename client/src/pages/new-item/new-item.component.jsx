@@ -23,7 +23,7 @@ const NewItemPage = ({
 }) => {
   const dict = { item, ...itemDict[item] };
 
-  if (!uiData || !uiData[dict.plural]) return <div />;
+  if (!uiData || !uiData[dict.plural]) return null;
 
   const relatedCollections = dict.relatedCollections.reduce(
     (acc, collectionName) => ({
@@ -62,19 +62,32 @@ const NewItemPageCore = ({
       initialValues={initialValues}
       validationSchema={validationSchema(currItems)}
       onSubmit={(formValues, { setSubmitting }) => {
-        setSubmitting(false);
+        formValues = convertShallowSetsToArrays(formValues);
         submitNewItem({
           collection: modelName,
           link: item,
           formValues,
           history,
         });
+        setSubmitting(false);
       }}
     >
       {form(relatedCollections)}
     </Formik>
   </Container>
 );
+
+const convertShallowSetsToArrays = (obj) =>
+  Object.entries(obj).reduce(
+    (acc, [key, value]) =>
+      value instanceof Set
+        ? {
+            ...acc,
+            [key]: [...value],
+          }
+        : { ...acc, [key]: value },
+    {}
+  );
 
 const mapStateToProps = ({ ui: { uiData } }) => ({
   uiData,

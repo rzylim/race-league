@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./track-item.styles.scss";
 
-const TrackItem = ({ trackId, name, year }) => (
-  <Item className="track-item" to={`/dashboard/track/${trackId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const TrackItem = ({ name, year, ...otherProps }) => (
+  <Item className="track-item" {...otherProps}>
     <div className="name">{name}</div>
     <div className="year">{year}</div>
   </Item>

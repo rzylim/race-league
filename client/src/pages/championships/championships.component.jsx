@@ -42,7 +42,7 @@ const ChampionshipsPage = ({
   },
   uiData,
 }) => {
-  if (!uiData) return <div />;
+  if (!uiData) return null;
   return <ChampionshipsPageCore s={s} uiData={uiData} />;
 };
 

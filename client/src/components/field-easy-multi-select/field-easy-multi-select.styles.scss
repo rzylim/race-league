@@ -1,0 +1,28 @@
+.field-easy-multi-select {
+  .accordion {
+    margin: 0 0 1.25rem 0;
+    .card {
+      background-color: var(--dark);
+      opacity: 0.85;
+      &:hover {
+        opacity: 1;
+      }
+      .card-body {
+        opacity: 0.8;
+        padding-bottom: 0;
+        .row:not(:last-child) {
+          padding-bottom: 1.25rem;
+        }
+        .search {
+          padding: 0 0 1.25rem 0;
+        }
+      }
+    }
+  }
+
+  .selection {
+    .display-grid {
+      border: 3px solid white;
+    }
+  }
+}

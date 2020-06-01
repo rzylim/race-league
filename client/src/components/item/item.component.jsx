@@ -6,11 +6,17 @@ import Container from "react-bootstrap/Container";
 
 import "./item.styles.scss";
 
-const Item = ({ children, to, className }) => (
-  <Col xs={6} md={4} lg={3} className="display-container">
-    <Container as={Link} to={to} className={"display-grid " + className}>
-      {children}
-    </Container>
+const Item = ({ children, className, to, onClick }) => (
+  <Col xs={6} md={4} lg={3} className="display-item">
+    {to ? (
+      <Container as={Link} to={to} className={"display-grid " + className}>
+        {children}
+      </Container>
+    ) : (
+      <Container onClick={onClick} className={"display-grid " + className}>
+        {children}
+      </Container>
+    )}
   </Col>
 );
 

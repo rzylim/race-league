@@ -4,8 +4,9 @@ import Item from "../item/item.component";
 
 import "./game-item.styles.scss";
 
-const GameItem = ({ gameId, name }) => (
-  <Item className="game-item" to={`/games/${gameId}`}>
+// pass to as string for a Link, onClick function for use in a form.
+const GameItem = ({ name, ...otherProps }) => (
+  <Item className="game-item" {...otherProps}>
     <div className="name">{name}</div>
   </Item>
 );
