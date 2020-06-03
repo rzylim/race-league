@@ -14,7 +14,7 @@ import DashboardPage from "./pages/dashboard/dashboard.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
 import NewChampionshipPage from "./pages/new-championship/new-championship.component";
-import NewItemPage from "./pages/new-item/new-item.component";
+import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
   useEffect(() => {
@@ -23,20 +23,24 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
   }, [checkUserSession, loadUiData]);
 
   return (
-    <div>
+    <>
       <Header />
       <Container>
         <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/dashboard" component={DashboardPage} />
-          <Route path="/dashboard/:item/new" component={NewItemPage} />
+          <Route exact path="/" component={LandingPage} />{" "}
+          <Route
+            path="/dashboard/:itemType/:itemId"
+            component={NewEditItemPage}
+          />
+          <Route path="/dashboard/:itemType" component={DashboardPage} />
+          <Route path="/dashboard" component={DashboardPage} />
           <Route path="/:s/championships/new" component={NewChampionshipPage} />
           <Route path="/:s/championships/:c" component={ChampionshipPage} />
           <Route path="/:s/championships" component={ChampionshipsPage} />
           {/* admin role, test role (that can only create but not delete seasons) */}
         </Switch>
       </Container>
-    </div>
+    </>
   );
 };
 

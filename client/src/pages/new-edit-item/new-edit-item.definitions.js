@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 
-import { Form, Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage } from "formik";
 import { Form as BSForm, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
@@ -13,12 +13,12 @@ import TrackItem from "../../components/track-item/track-item.component";
 
 import { yearRange } from "../../utilities/yearRange";
 
-export const itemDict = {
+export const itemDict = () => ({
   series: {
     modelName: "Series",
     plural: "series",
     relatedCollections: [],
-    initialValues: { name: "", link: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "", link: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -33,7 +33,7 @@ export const itemDict = {
           .required("Required"),
       }),
     form: () => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col} xs={8}>
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
@@ -53,14 +53,14 @@ export const itemDict = {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </BSForm>
+      </>
     ),
   },
   region: {
     modelName: "Region",
     plural: "regions",
     relatedCollections: [],
-    initialValues: { name: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -70,7 +70,7 @@ export const itemDict = {
           .required("Required"),
       }),
     form: () => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col}>
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
@@ -81,17 +81,17 @@ export const itemDict = {
           </BSForm.Group>
         </BSForm.Row>
 
-        <Button variant="primary" type="submit">
+        {/* <Button variant="primary" type="submit">
           Submit
-        </Button>
-      </BSForm>
+        </Button> */}
+      </>
     ),
   },
   tier: {
     modelName: "Tier",
     plural: "tiers",
     relatedCollections: [],
-    initialValues: { name: "", colour: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "", colour: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -101,7 +101,7 @@ export const itemDict = {
         colour: Yup.string(),
       }),
     form: () => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col} xs={12} md={8}>
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
@@ -122,14 +122,22 @@ export const itemDict = {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </BSForm>
+      </>
     ),
   },
   game: {
     modelName: "Game",
     plural: "games",
     relatedCollections: ["cars", "tracks"],
-    initialValues: { name: "", cars: new Set(), tracks: new Set() },
+    initialValues: (item) =>
+      item
+        ? { ...item, cars: new Set(item.cars), tracks: new Set(item.tracks) }
+        : {
+            _id: "",
+            name: "",
+            cars: new Set(),
+            tracks: new Set(),
+          },
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -138,7 +146,7 @@ export const itemDict = {
           .required("Required"),
       }),
     form: ({ cars, tracks }) => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col} xs={12} md={12}>
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
@@ -164,14 +172,15 @@ export const itemDict = {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </BSForm>
+      </>
     ),
   },
   car: {
     modelName: "Car",
     plural: "cars",
     relatedCollections: [],
-    initialValues: { model: "", make: "", year: yearRange()[0] },
+    initialValues: (item) =>
+      item ? item : { _id: "", model: "", make: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         model: Yup.string()
@@ -180,7 +189,7 @@ export const itemDict = {
         make: Yup.string().required("Required"),
       }),
     form: () => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col} xs={12} md={6}>
             <BSForm.Label htmlFor="model">Model</BSForm.Label>
@@ -215,20 +224,21 @@ export const itemDict = {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </BSForm>
+      </>
     ),
   },
   track: {
     modelName: "Track",
     plural: "tracks",
     relatedCollections: [],
-    initialValues: { name: "", year: yearRange()[0] },
+    initialValues: (item) =>
+      item ? item : { _id: "", name: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         name: Yup.string().required("Required"),
       }),
     form: () => (
-      <BSForm as={Form}>
+      <>
         <BSForm.Row>
           <BSForm.Group as={Col} xs={9} md={10}>
             <BSForm.Label htmlFor="name">Name</BSForm.Label>
@@ -256,7 +266,7 @@ export const itemDict = {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </BSForm>
+      </>
     ),
   },
-};
+});

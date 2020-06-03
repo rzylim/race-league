@@ -34,4 +34,9 @@ h2 {
   &:focus {
     background-color: gainsboro;
   }
+
+  &:disabled {
+    background-color: gainsboro;
+    opacity: 0.6;
+  }
 }

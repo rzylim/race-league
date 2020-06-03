@@ -14,12 +14,12 @@ const uiReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
     case UiActionTypes.LOAD_UI_DATA_FAILURE:
-    case UiActionTypes.SUBMIT_NEW_ITEM_FAILURE:
+    case UiActionTypes.DASHBOARD_NEW_ITEM_FAILURE:
       return {
         ...state,
         error: action.payload,
       };
-    case UiActionTypes.SUBMIT_NEW_ITEM_SUCCESS:
+    case UiActionTypes.DASHBOARD_NEW_ITEM_SUCCESS:
     default:
       return state;
   }

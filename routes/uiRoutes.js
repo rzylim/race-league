@@ -10,18 +10,19 @@ const { Role } = require("../models/Role");
 module.exports = (app) => {
   app.get("/api/uidata", async (req, res) => {
     try {
-      const series = await Series.find({}).populate("games");
-      const regions = await Region.find({});
-      const tiers = await Tier.find({});
+      const series = await Series.find({}).select("-__v").populate("games");
+      const regions = await Region.find({}).select("-__v");
+      const tiers = await Tier.find({}).select("-__v");
       const championships = await Championship.find({})
+        .select("-__v")
         .populate("series")
         .populate("game")
         .populate("region")
         .populate("tier");
-      const games = await Game.find({});
-      const cars = await Car.find({});
-      const tracks = await Track.find({});
-      const roles = await Role.find({});
+      const games = await Game.find({}).select("-__v");
+      const cars = await Car.find({}).select("-__v");
+      const tracks = await Track.find({}).select("-__v");
+      const roles = await Role.find({}).select("-__v");
       res.send({
         series,
         regions,
