@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 
 import { isEqual } from "lodash";
 
-import Container from "react-bootstrap/Container";
-import Accordian from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
+import {
+  Container,
+  Accordion,
+  Card,
+  Row,
+  Col,
+  Form as BSForm,
+} from "react-bootstrap";
 
 import ChampionshipItem from "../../components/championship-item/championship-item.component";
 import Can from "../../components/can/can.component";
@@ -134,17 +136,17 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
   return (
     <Container id="championships-page">
       <h2>Championships</h2>
-      <Accordian>
+      <Accordion>
         <Card>
-          <Accordian.Toggle as={Card.Header} eventKey="0">
+          <Accordion.Toggle as={Card.Header} eventKey="0">
             Filters
-          </Accordian.Toggle>
-          <Accordian.Collapse eventKey="0">
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
             <Card.Body>
               <Row className="search-row">
                 <Col>
-                  <Form.Label>Search</Form.Label>
-                  <Form.Control
+                  <BSForm.Label>Search</BSForm.Label>
+                  <BSForm.Control
                     type="text"
                     placeholder="Search"
                     onChange={handleChange.search}
@@ -153,9 +155,9 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
               </Row>
               <Row>
                 <Col>
-                  <Form.Label>Series</Form.Label>
+                  <BSForm.Label>Series</BSForm.Label>
                   {Object.entries(selection.series).map(([key, value]) => (
-                    <Form.Check
+                    <BSForm.Check
                       type="checkbox"
                       key={`checkbox-series-${key}`}
                       name={`${key}`}
@@ -166,10 +168,10 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                   ))}
                 </Col>
                 <Col>
-                  <Form.Label>Region</Form.Label>
+                  <BSForm.Label>Region</BSForm.Label>
                   {Object.entries(selection.region).map(([key, value]) => {
                     return value === "disabled" ? (
-                      <Form.Check
+                      <BSForm.Check
                         disabled
                         type="checkbox"
                         key={`checkbox-region-${key}`}
@@ -177,7 +179,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                         checked={false}
                       />
                     ) : (
-                      <Form.Check
+                      <BSForm.Check
                         type="checkbox"
                         key={`checkbox-region-${key}`}
                         name={`${key}`}
@@ -189,10 +191,10 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                   })}
                 </Col>
                 <Col>
-                  <Form.Label>Tier</Form.Label>
+                  <BSForm.Label>Tier</BSForm.Label>
                   {Object.entries(selection.tier).map(([key, value]) => {
                     return value === "disabled" ? (
-                      <Form.Check
+                      <BSForm.Check
                         disabled
                         type="checkbox"
                         key={`checkbox-tier-${key}`}
@@ -200,7 +202,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                         checked={false}
                       />
                     ) : (
-                      <Form.Check
+                      <BSForm.Check
                         type="checkbox"
                         key={`checkbox-tier-${key}`}
                         name={`${key}`}
@@ -212,11 +214,11 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                   })}
                 </Col>
                 <Col>
-                  <Form.Label>Game</Form.Label>
+                  <BSForm.Label>Game</BSForm.Label>
                   {Object.entries(selection.game)
                     .filter(([key, value]) => value !== "hidden")
                     .map(([key, value]) => (
-                      <Form.Check
+                      <BSForm.Check
                         type="checkbox"
                         key={`checkbox-game-${key}`}
                         name={`${key}`}
@@ -228,9 +230,9 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
                 </Col>
               </Row>
             </Card.Body>
-          </Accordian.Collapse>
+          </Accordion.Collapse>
         </Card>
-      </Accordian>
+      </Accordion>
       <Row>
         {s && thisSeries ? (
           <Can

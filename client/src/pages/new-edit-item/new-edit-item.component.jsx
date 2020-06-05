@@ -11,9 +11,7 @@ import {
 import { itemDict } from "./new-edit-item.definitions";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Form as BSForm, Col, Button, Modal } from "react-bootstrap";
-
-import Container from "react-bootstrap/Container";
+import { Container, Form as BSForm, Col, Button, Modal } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 

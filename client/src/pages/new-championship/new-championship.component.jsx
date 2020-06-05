@@ -5,9 +5,7 @@ import { Redirect } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import Container from "react-bootstrap/Container";
-import { Form as BSForm, Col } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import { Container, Form as BSForm, Col, Button } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 import FieldSelect from "../../components/field-select/field-select.component";

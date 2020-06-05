@@ -2,10 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import Container from "react-bootstrap/Container";
-import Accordian from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
+import { Container, Accordion, Card, Row } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 import NewItem from "../../components/new-item/new-item.component";
@@ -34,12 +31,12 @@ const DashboardPage = ({
 const DashboardPageCore = ({ itemType, uiData }) => (
   <Container id="dashboard-page">
     <h2>Dashboard</h2>
-    <Accordian defaultActiveKey={itemType}>
+    <Accordion defaultActiveKey={itemType}>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="series">
+        <Accordion.Toggle as={Card.Header} eventKey="series">
           Series
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="series">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="series">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/series/new" />}
@@ -53,13 +50,13 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="region">
+        <Accordion.Toggle as={Card.Header} eventKey="region">
           Regions
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="region">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="region">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/region/new" />}
@@ -73,13 +70,13 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="tier">
+        <Accordion.Toggle as={Card.Header} eventKey="tier">
           Tiers
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="tier">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="tier">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/tier/new" />}
@@ -93,13 +90,13 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="game">
+        <Accordion.Toggle as={Card.Header} eventKey="game">
           Games
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="game">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="game">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/game/new" />}
@@ -113,13 +110,13 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="car">
+        <Accordion.Toggle as={Card.Header} eventKey="car">
           Cars
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="car">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="car">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/car/new" />}
@@ -133,13 +130,13 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordian.Toggle as={Card.Header} eventKey="track">
+        <Accordion.Toggle as={Card.Header} eventKey="track">
           Tracks
-        </Accordian.Toggle>
-        <Accordian.Collapse eventKey="track">
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="track">
           <Card.Body>
             <Row>
               {<NewItem to="/dashboard/track/new" />}
@@ -153,9 +150,9 @@ const DashboardPageCore = ({ itemType, uiData }) => (
               ))}
             </Row>
           </Card.Body>
-        </Accordian.Collapse>
+        </Accordion.Collapse>
       </Card>
-    </Accordian>
+    </Accordion>
   </Container>
 );
 

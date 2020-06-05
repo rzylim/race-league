@@ -3,7 +3,7 @@ import axios from "axios";
 import assembleRoles from "../../authorisation/roles";
 
 export const getUiData = async () => {
-  let { data } = await axios.get("/api/uidata");
+  let { data } = await axios.get("/api/ui_data");
   const compiledData = compileDataOnSeries(data.series, data.championships);
   data.series.forEach((s, idx) => {
     data.series[idx].regions = compiledData[s.name].seriesRegions;

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 import { useField } from "formik";
 
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Accordian from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
+import {
+  Form as BSForm,
+  Container,
+  Row,
+  Col,
+  Accordion,
+  Card,
+} from "react-bootstrap";
 
 import "./field-easy-multi-select.styles.scss";
 
@@ -35,8 +37,8 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
   };
 
   return (
-    <Form.Group as={Col} xs={12} className="field-easy-multi-select">
-      <Form.Label>{label}</Form.Label>
+    <BSForm.Group as={Col} xs={12} className="field-easy-multi-select">
+      <BSForm.Label>{label}</BSForm.Label>
       <Row className="selection">
         {options
           .filter(({ _id }) => value.has(_id))
@@ -48,17 +50,17 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
             />
           ))}
       </Row>
-      <Accordian>
+      <Accordion>
         <Card>
-          <Accordian.Toggle as={Card.Header} eventKey="select">
+          <Accordion.Toggle as={Card.Header} eventKey="select">
             Select
-          </Accordian.Toggle>
-          <Accordian.Collapse eventKey="select">
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="select">
             <Card.Body>
               <Row>
                 <Col xs={12}>
                   <Container className="search">
-                    <Form.Control
+                    <BSForm.Control
                       type="text"
                       placeholder="Search"
                       onChange={handleSearchChange}
@@ -79,10 +81,10 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
                   ))}
               </Row>
             </Card.Body>
-          </Accordian.Collapse>
+          </Accordion.Collapse>
         </Card>
-      </Accordian>
-    </Form.Group>
+      </Accordion>
+    </BSForm.Group>
   );
 };
 

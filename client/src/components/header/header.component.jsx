@@ -1,10 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import Can from "../can/can.component";

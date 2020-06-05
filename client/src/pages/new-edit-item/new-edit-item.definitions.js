@@ -2,8 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { Field, ErrorMessage } from "formik";
-import { Form as BSForm, Col } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import { Form as BSForm, Col, Button } from "react-bootstrap";
 
 import FieldSelect from "../../components/field-select/field-select.component";
 import FieldEasyMultiSelect from "../../components/field-easy-multi-select/field-easy-multi-select.component";
@@ -50,9 +49,6 @@ export const itemDict = () => ({
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </>
     ),
   },
@@ -80,10 +76,6 @@ export const itemDict = () => ({
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-
-        {/* <Button variant="primary" type="submit">
-          Submit
-        </Button> */}
       </>
     ),
   },
@@ -118,10 +110,6 @@ export const itemDict = () => ({
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </>
     ),
   },
@@ -168,10 +156,6 @@ export const itemDict = () => ({
             Component={TrackItem}
           />
         </BSForm.Row>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </>
     ),
   },
@@ -220,10 +204,6 @@ export const itemDict = () => ({
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </>
     ),
   },
@@ -262,10 +242,6 @@ export const itemDict = () => ({
             </BSForm.Text>
           </BSForm.Group>
         </BSForm.Row>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
       </>
     ),
   },
