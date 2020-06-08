@@ -1,6 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+
+import {
+  newChampionship,
+  updateChampionship,
+  deleteChampionship,
+} from "../../redux/crud/crud.actions";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -10,25 +16,35 @@ import { Container, Form as BSForm, Col, Button } from "react-bootstrap";
 import Can from "../../components/can/can.component";
 import FieldSelect from "../../components/field-select/field-select.component";
 
-import "./new-championship.styles.scss";
+import "./new-edit-championship.styles.scss";
 
-const NewChampionshipPage = ({
+const NewEditChampionshipPage = ({
   match: {
-    params: { s },
+    params: { s, chId },
   },
   uiData,
+  ...otherProps
 }) => {
+  // wait for ui data to load.
   if (!uiData) return null;
-
-  // check series type
   const thisSeries = uiData.series.find((e) => e.link === s);
+  // return to dashboard if item type doesn't exist.
+  if (!thisSeries) return <Redirect to="/" />;
+
+  const championship = uiData.championships.find((e) => e._id === chId);
 
   return (
     <Can
       perform={["series:edit"]}
       on={{ seriesId: thisSeries._id }}
       yes={() => (
-        <NewChampionshipPageCore thisSeries={thisSeries} uiData={uiData} />
+        <NewEditChampionshipPageCore
+          thisSeries={thisSeries}
+          championship={championship}
+          currChampionships={uiData.championships.filter((e) => e._id !== chId)}
+          uiData={uiData}
+          {...otherProps}
+        />
       )}
       no={() =>
         s ? (
@@ -41,24 +57,50 @@ const NewChampionshipPage = ({
   );
 };
 
-const NewChampionshipPageCore = ({ thisSeries, uiData }) => (
+const NewEditChampionshipPageCore = ({
+  thisSeries,
+  championship,
+  currChampionships,
+  uiData,
+  newChampionship,
+  updateChampionship,
+  deleteChampionship,
+  history,
+}) => (
   <Container id="new-championship-page">
-    <h2>New Championship</h2>
+    <h2>{(championship ? "Edit" : "New") + " Championship"}</h2>
     <Formik
-      initialValues={{ name: "", abbreviation: "" }}
+      initialValues={{
+        _id: "",
+        name: "",
+        abbreviation: "",
+        series: thisSeries._id,
+        game: uiData.games[0]._id,
+        region: uiData.regions[0]._id,
+        tier: uiData.tiers[0]._id,
+      }}
       validationSchema={Yup.object({
         name: Yup.string()
           .max(60, "Must be 60 characters or less")
+          .notOneOf(currChampionships.map(({ name }) => name))
           .required("Required"),
         abbreviation: Yup.string()
           .max(15, "Must be 15 characters or less")
+          .notOneOf(currChampionships.map(({ abbreviation }) => abbreviation))
           .required("Required"),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+      onSubmit={(formValues, { setSubmitting }) => {
+        const submission = {
+          seriesLink: thisSeries.link,
+          formValues,
+          history,
+        };
+        if (championship) {
+          updateChampionship(submission);
+        } else {
+          newChampionship(submission);
+        }
+        setSubmitting(false);
       }}
     >
       <BSForm as={Form}>
@@ -88,7 +130,7 @@ const NewChampionshipPageCore = ({ thisSeries, uiData }) => (
                 value: _id,
                 text: name,
               }))}
-              defaultValue={thisSeries._id}
+              disabled
             />
           </BSForm.Group>
           <BSForm.Group as={Col} xs={6} md={3}>
@@ -138,4 +180,13 @@ const mapStateToProps = ({ ui: { uiData } }) => ({
   uiData,
 });
 
-export default connect(mapStateToProps)(NewChampionshipPage);
+const mapDispatchToProps = (dispatch) => ({
+  newChampionship: (data) => dispatch(newChampionship(data)),
+  updateChampionship: (data) => dispatch(updateChampionship(data)),
+  deleteChampionship: (data) => dispatch(deleteChampionship(data)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(NewEditChampionshipPage));

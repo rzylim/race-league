@@ -42,7 +42,7 @@ const crudRouter = require("./routes/crudRoutes");
 
 app.use("/auth", authRouter);
 app.use("/api/ui_data", uiRouter);
-app.use("/api/item", crudRouter);
+app.use("/api/crud", crudRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(compression());

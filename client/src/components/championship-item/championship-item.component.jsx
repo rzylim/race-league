@@ -15,7 +15,7 @@ const ChampionshipItem = ({
 }) => (
   <Item
     className="championship-item"
-    to={`/${seriesLink}/championships/${chId}`}
+    to={`/${seriesLink}/championship/${chId}`}
   >
     <div className="abbrv">{abbreviation}</div>
     <div className="game">{game}</div>

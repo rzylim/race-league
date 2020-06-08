@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 import { isEqual } from "lodash";
 
@@ -44,11 +45,18 @@ const ChampionshipsPage = ({
   },
   uiData,
 }) => {
+  // wait for ui data to load.
   if (!uiData) return null;
-  return <ChampionshipsPageCore s={s} uiData={uiData} />;
+  const thisSeries = uiData.series.find((e) => e.link === s);
+  // return to dashboard if item type doesn't exist.
+  if (!thisSeries) return <Redirect to="/" />;
+
+  return (
+    <ChampionshipsPageCore s={s} uiData={uiData} thisSeries={thisSeries} />
+  );
 };
 
-const ChampionshipsPageCore = ({ s, uiData }) => {
+const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
   let initialState = {
     series: uiData.series.reduce(initialStateReducer, {}),
     region: uiData.regions.reduce(initialStateReducer, {}),
@@ -59,7 +67,6 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
 
   const { selection, setFilter, handleChange } = useFilterState(initialState);
 
-  const thisSeries = uiData.series.find((e) => e.link === s);
   let newFilterSelection = {};
   // handle changes in route parameter
   // set to prevent infinite processing of address series parameter
@@ -238,7 +245,7 @@ const ChampionshipsPageCore = ({ s, uiData }) => {
           <Can
             perform={["series:edit"]}
             on={{ seriesId: thisSeries._id }}
-            yes={() => <NewItem to={`/${thisSeries.link}/championships/new`} />}
+            yes={() => <NewItem to={`/${thisSeries.link}/championship/new`} />}
             no={() => null}
           />
         ) : null}

@@ -2,7 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { Field, ErrorMessage } from "formik";
-import { Form as BSForm, Col, Button } from "react-bootstrap";
+import { Form as BSForm, Col } from "react-bootstrap";
 
 import FieldSelect from "../../components/field-select/field-select.component";
 import FieldEasyMultiSelect from "../../components/field-easy-multi-select/field-easy-multi-select.component";

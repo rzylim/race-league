@@ -41,3 +41,45 @@ export const dashboardDeleteItemFailure = (error) => ({
   type: CrudActionTypes.DASHBOARD_DELETE_ITEM_FAILURE,
   payload: error,
 });
+
+export const newChampionship = (data) => ({
+  type: CrudActionTypes.NEW_CHAMPIONSHIP,
+  payload: data,
+});
+
+export const newChampionshipSuccess = () => ({
+  type: CrudActionTypes.NEW_CHAMPIONSHIP_SUCCESS,
+});
+
+export const newChampionshipFailure = (error) => ({
+  type: CrudActionTypes.NEW_CHAMPIONSHIP_FAILURE,
+  payload: error,
+});
+
+export const updateChampionship = (data) => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP,
+  payload: data,
+});
+
+export const updateChampionshipSuccess = () => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP_SUCCESS,
+});
+
+export const updateChampionshipFailure = (error) => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP_FAILURE,
+  payload: error,
+});
+
+export const deleteChampionship = (data) => ({
+  type: CrudActionTypes.DELETE_CHAMPIONSHIP,
+  payload: data,
+});
+
+export const deleteChampionshipSuccess = () => ({
+  type: CrudActionTypes.DELETE_CHAMPIONSHIP_SUCCESS,
+});
+
+export const deleteChampionshipFailure = (error) => ({
+  type: CrudActionTypes.DELETE_CHAMPIONSHIP_FAILURE,
+  payload: error,
+});

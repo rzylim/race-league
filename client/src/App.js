@@ -13,7 +13,7 @@ import LandingPage from "./pages/landing/landing.component";
 import DashboardPage from "./pages/dashboard/dashboard.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
-import NewChampionshipPage from "./pages/new-championship/new-championship.component";
+import NewEditChampionshipPage from "./pages/new-edit-championship/new-edit-championship.component";
 import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
 
 const App = ({ checkUserSession, loadUiData, currentUser }) => {
@@ -34,9 +34,16 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
           />
           <Route path="/dashboard/:itemType" component={DashboardPage} />
           <Route path="/dashboard" component={DashboardPage} />
-          <Route path="/:s/championships/new" component={NewChampionshipPage} />
-          <Route path="/:s/championships/:c" component={ChampionshipPage} />
           <Route path="/:s/championships" component={ChampionshipsPage} />
+          <Route
+            path="/:s/championship/new"
+            component={NewEditChampionshipPage}
+          />
+          <Route path="/:s/championships/:chId" component={ChampionshipPage} />
+          <Route
+            path="/:s/championships/:chId/edit"
+            component={NewEditChampionshipPage}
+          />
           {/* admin role, test role (that can only create but not delete seasons) */}
         </Switch>
       </Container>

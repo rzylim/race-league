@@ -7,7 +7,7 @@ import checkPermissions from "../../authorisation/authorisation";
 // withPermissions contains seriesPermissions and/ or championshipPermissions
 const Can = ({ uiData, currentUser, perform, on, yes, no }) => {
   if (!uiData || !currentUser) {
-    return null;
+    return no();
   }
 
   return checkPermissions(

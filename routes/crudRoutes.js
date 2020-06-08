@@ -4,7 +4,7 @@ const router = express.Router();
 const collections = require("../models/collections");
 const checkPermissions = require("../client/src/authorisation/authorisation");
 
-router.route("/new").post(async (req, res) => {
+router.route("/item/new").post(async (req, res) => {
   if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
     res.status(403).send({ error: "Access denied." });
     return;
@@ -24,7 +24,7 @@ router.route("/new").post(async (req, res) => {
 });
 
 router
-  .route("/:_id")
+  .route("/item/:_id")
   .put(async (req, res) => {
     if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
       res.status(403).send({ error: "Access denied." });
@@ -58,5 +58,23 @@ router
       res.status(422).send(error);
     }
   });
+
+router.route("/championship/new").post(async (req, res) => {
+  if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
+    res.status(403).send({ error: "Access denied." });
+    return;
+  }
+
+  const {
+    formValues: { _id, ...data },
+  } = req.body;
+
+  try {
+    const newChampionship = await collections.Championship.create(data);
+    res.status(200).send(newChampionship);
+  } catch (error) {
+    res.status(422).send(error);
+  }
+});
 
 module.exports = router;

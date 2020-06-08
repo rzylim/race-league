@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 import {
   dasbboardNewItem,
@@ -24,9 +23,11 @@ const NewEditItemPage = ({
   uiData,
   ...otherProps
 }) => {
-  const dict = itemDict(itemId)[itemType];
+  // wait for ui data to load.
   if (!uiData) return null;
-  if (!uiData[dict.plural]) return <Redirect to="/dashboard" />;
+  const dict = itemDict(itemId)[itemType];
+  // return to dashboard if item type doesn't exist.
+  if (!dict || !uiData[dict.plural]) return <Redirect to="/dashboard" />;
 
   const item = uiData[dict.plural].find((e) => e._id === itemId);
 
@@ -43,9 +44,11 @@ const NewEditItemPage = ({
       perform={["dashboard:edit"]}
       yes={() => (
         <NewEditItemPageCore
+          itemType={itemType}
+          item={item}
+          dict={dict}
           currItems={uiData[dict.plural].filter((e) => e._id !== itemId)}
           relatedCollections={relatedCollections}
-          dict={{ itemType, item, ...dict }}
           {...otherProps}
         />
       )}
@@ -56,9 +59,11 @@ const NewEditItemPage = ({
 
 // item used to differentiate between editing or creation
 const NewEditItemPageCore = ({
+  itemType,
+  item,
+  dict: { modelName, initialValues, validationSchema, form },
   currItems,
   relatedCollections,
-  dict: { itemType, item, modelName, initialValues, validationSchema, form },
   dasbboardNewItem,
   dashboardUpdateItem,
   dashboardDeleteItem,
