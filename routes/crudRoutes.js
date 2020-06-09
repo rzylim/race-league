@@ -60,7 +60,16 @@ router
   });
 
 router.route("/championship/new").post(async (req, res) => {
-  if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
+  const { seriesPermissions, championshipPermissions } = req.user;
+  if (
+    !checkPermissions(
+      global.roles,
+      req.user.role,
+      ["series:edit"],
+      { seriesId: req.body.formValues.series },
+      { seriesPermissions, championshipPermissions }
+    )
+  ) {
     res.status(403).send({ error: "Access denied." });
     return;
   }
@@ -72,6 +81,34 @@ router.route("/championship/new").post(async (req, res) => {
   try {
     const newChampionship = await collections.Championship.create(data);
     res.status(200).send(newChampionship);
+  } catch (error) {
+    res.status(422).send(error);
+  }
+});
+
+router.route("/championship/:_id").put(async (req, res) => {
+  const { seriesPermissions, championshipPermissions } = req.user;
+  if (
+    !checkPermissions(
+      global.roles,
+      req.user.role,
+      ["series:edit"],
+      { seriesId: req.body.formValues.series },
+      { seriesPermissions, championshipPermissions }
+    )
+  ) {
+    res.status(403).send({ error: "Access denied." });
+    return;
+  }
+
+  const {
+    collection,
+    formValues: { _id, ...update },
+  } = req.body;
+
+  try {
+    await collections[collection].findByIdAndUpdate(_id, update);
+    res.status(200).send("Update successful!");
   } catch (error) {
     res.status(422).send(error);
   }
