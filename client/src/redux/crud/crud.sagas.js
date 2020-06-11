@@ -26,7 +26,7 @@ export function* onDasbboardNewItem() {
 
 export function* dasbboardNewItem({ payload: { history, itemType, ...data } }) {
   try {
-    yield axios.post("/api/crud/item/new", data);
+    yield axios.post("/api/crud/item", data);
     yield put(dasbboardNewItemSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/dashboard/${itemType}`);
@@ -40,10 +40,10 @@ export function* onDashboardUpdateItem() {
 }
 
 export function* dashboardUpdateItem({
-  payload: { history, itemType, _id, ...data },
+  payload: { history, itemType, ...data },
 }) {
   try {
-    yield axios.put(`/api/crud/item/${_id}`, data);
+    yield axios.put("/api/crud/item", data);
     yield put(dashboardUpdateItemSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/dashboard/${itemType}`);
@@ -57,10 +57,10 @@ export function* onDashboardDeleteItem() {
 }
 
 export function* dashboardDeleteItem({
-  payload: { history, itemType, _id, ...data },
+  payload: { history, itemType, ...data },
 }) {
   try {
-    yield axios.delete(`/api/crud/item/${_id}`, { data });
+    yield axios.delete("/api/crud/item", { data });
     yield put(dashboardDeleteItemSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/dashboard/${itemType}`);
@@ -77,7 +77,7 @@ export function* newChampionship({
   payload: { history, seriesLink, ...data },
 }) {
   try {
-    yield axios.post("/api/crud/championship/new", data);
+    yield axios.post("/api/crud/championship", data);
     yield put(newChampionshipSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/${seriesLink}/championships`);
@@ -91,10 +91,10 @@ export function* onUpdateChampionship() {
 }
 
 export function* updateChampionship({
-  payload: { history, seriesLink, _id, ...data },
+  payload: { history, seriesLink, ...data },
 }) {
   try {
-    yield axios.put(`/api/crud/championship/${_id}`, data);
+    yield axios.put("/api/crud/championship", data);
     yield put(updateChampionshipSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/${seriesLink}/championships`);
@@ -108,10 +108,10 @@ export function* onDeleteChampionship() {
 }
 
 export function* deleteChampionship({
-  payload: { history, seriesLink, _id, ...data },
+  payload: { history, seriesLink, ...data },
 }) {
   try {
-    yield axios.delete(`/api/crud/championship/${_id}`, data);
+    yield axios.delete("/api/crud/championship", { data });
     yield put(deleteChampionshipSuccess()); // for debug purposes
     yield put(loadUiData());
     history.push(`/${seriesLink}/championships`);

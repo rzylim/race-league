@@ -36,14 +36,14 @@ const App = ({ checkUserSession, loadUiData, currentUser }) => {
           <Route path="/dashboard" component={DashboardPage} />
           <Route path="/:s/championships" component={ChampionshipsPage} />
           <Route
+            path="/:s/championship/:chId/edit"
+            component={NewEditChampionshipPage}
+          />
+          <Route
             path="/:s/championship/new"
             component={NewEditChampionshipPage}
           />
-          <Route path="/:s/championships/:chId" component={ChampionshipPage} />
-          <Route
-            path="/:s/championships/:chId/edit"
-            component={NewEditChampionshipPage}
-          />
+          <Route path="/:s/championship/:chId" component={ChampionshipPage} />
           {/* admin role, test role (that can only create but not delete seasons) */}
         </Switch>
       </Container>

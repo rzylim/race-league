@@ -1,7 +1,18 @@
 #new-championship-page {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
+  .col.submit {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
 
-  .btn {
-    margin-top: 10px;
+.modal-content {
+  background-color: var(--dark) !important;
+  .close {
+    color: white;
+    &:hover {
+      color: white;
+      opacity: 0.5;
+    }
   }
 }
