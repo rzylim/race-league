@@ -113,7 +113,9 @@ const NewEditChampionshipPageCore = ({
         })}
         onSubmit={(formValues, { setSubmitting }) => {
           const submission = {
-            seriesLink: thisSeries.link,
+            seriesLink: uiData.series.find(
+              ({ _id }) => _id === formValues.series
+            ).link,
             formValues,
             history,
           };
@@ -163,7 +165,6 @@ const NewEditChampionshipPageCore = ({
                   value: _id,
                   text: name,
                 }))}
-                disabled
               />
             </BSForm.Group>
             <BSForm.Group as={Col} xs={6} md={3}>
