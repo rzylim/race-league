@@ -17,7 +17,7 @@ import ChampionshipItem from "../../components/championship-item/championship-it
 import Can from "../../components/can/can.component";
 import NewItem from "../../components/new-item/new-item.component";
 
-import { searchStringProps } from "../../utilities/searchStringProps";
+import { searchStringProps } from "../../utilities/search";
 
 import { useFilterState } from "./championships.hooks.js";
 

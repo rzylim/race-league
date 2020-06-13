@@ -11,7 +11,7 @@ import {
   Card,
 } from "react-bootstrap";
 
-import { searchStringProps } from "../../utilities/searchStringProps";
+import { searchStringProps } from "../../utilities/search";
 
 import "./field-easy-multi-select.styles.scss";
 

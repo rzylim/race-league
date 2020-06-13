@@ -4,3 +4,7 @@ export const searchStringProps = (props, searchTerm) =>
       acc || value.toString().toLowerCase().includes(searchTerm.toLowerCase()),
     false
   );
+
+export const handleSearchChange = (event, setSearch) => {
+  setSearch(event.target.value);
+};

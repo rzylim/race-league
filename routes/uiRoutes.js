@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const checkPermissions = require("../client/src/authorisation/authorisation");
+
 const { Series } = require("../models/Series");
 const { Region } = require("../models/Region");
 const { Tier } = require("../models/Tier");
@@ -9,6 +11,7 @@ const { Game } = require("../models/Game");
 const { Car } = require("../models/Car");
 const { Track } = require("../models/Track");
 const { Role } = require("../models/Role");
+const { User } = require("../models/User");
 
 router.route("/").get(async (req, res) => {
   try {
@@ -25,6 +28,14 @@ router.route("/").get(async (req, res) => {
     const cars = await Car.find({}).select("-__v");
     const tracks = await Track.find({}).select("-__v");
     const roles = await Role.find({}).select("-__v");
+    let omitUserPermissions = "";
+    if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
+      omitUserPermissions +=
+        "-role -seriesPermissions -championshipPermissions";
+    }
+    const users = await User.find({}).select(
+      "-__v -discordId -email " + omitUserPermissions
+    );
     res.send({
       series,
       regions,
@@ -34,6 +45,7 @@ router.route("/").get(async (req, res) => {
       cars,
       tracks,
       roles,
+      users,
     });
   } catch (error) {
     res.send(error);

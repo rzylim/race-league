@@ -31,6 +31,9 @@ const Header = ({ currentUser, uiData }) => (
                 </NavDropdown>
               ))
             : null}
+          <Nav.Link as={Link} to="/drivers">
+            Drivers
+          </Nav.Link>
           <Can
             perform={["dashboard:view"]}
             yes={() => (

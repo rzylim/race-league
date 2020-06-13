@@ -11,10 +11,12 @@ import Header from "./components/header/header.component";
 
 import LandingPage from "./pages/landing/landing.component";
 import DashboardPage from "./pages/dashboard/dashboard.component";
+import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
 import NewEditChampionshipPage from "./pages/new-edit-championship/new-edit-championship.component";
-import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
+import DriversPage from "./pages/drivers/drivers.component";
+import DriverPage from "./pages/driver/driver.component";
 
 const App = ({ checkUserSession, fetchUiData, currentUser }) => {
   useEffect(() => {
@@ -44,6 +46,8 @@ const App = ({ checkUserSession, fetchUiData, currentUser }) => {
             component={NewEditChampionshipPage}
           />
           <Route path="/:s/championship/:chId" component={ChampionshipPage} />
+          <Route path="/drivers" component={DriversPage} />
+          <Route path="/driver/:dvrId" component={DriverPage} />
           {/* admin role, test role (that can only create but not delete seasons) */}
         </Switch>
       </Container>
