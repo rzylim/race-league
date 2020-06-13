@@ -17,6 +17,8 @@ import ChampionshipItem from "../../components/championship-item/championship-it
 import Can from "../../components/can/can.component";
 import NewItem from "../../components/new-item/new-item.component";
 
+import { searchStringProps } from "../../utilities/searchStringProps";
+
 import { useFilterState } from "./championships.hooks.js";
 
 import "./championships.styles.scss";
@@ -256,12 +258,9 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
               selection.region[region.name] &&
               selection.tier[tier.name] &&
               selection.game[game.name] &&
-              (name.toLowerCase().includes(selection.search.toLowerCase()) ||
-                abbreviation
-                  .toLowerCase()
-                  .includes(selection.search.toLowerCase()))
+              searchStringProps({ name, abbreviation }, selection.search)
           )
-          .map(({ _id, abbreviation, series, game, region, tier }, ind) => (
+          .map(({ _id, abbreviation, series, game, region, tier }) => (
             <ChampionshipItem
               chId={_id}
               key={_id}
