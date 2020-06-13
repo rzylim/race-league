@@ -18,7 +18,7 @@ import {
   deleteChampionshipFailure,
 } from "./crud.actions";
 
-import { loadUiData } from "../ui/ui.actions";
+import { fetchUiData } from "../ui/ui.actions";
 
 export function* onDasbboardNewItem() {
   yield takeLatest(CrudActionTypes.DASHBOARD_NEW_ITEM, dasbboardNewItem);
@@ -28,7 +28,7 @@ export function* dasbboardNewItem({ payload: { history, itemType, ...data } }) {
   try {
     yield axios.post("/api/crud/item", data);
     yield put(dasbboardNewItemSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
     yield put(dasbboardNewItemFailure(error));
@@ -45,7 +45,7 @@ export function* dashboardUpdateItem({
   try {
     yield axios.put("/api/crud/item", data);
     yield put(dashboardUpdateItemSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
     yield put(dashboardUpdateItemFailure(error));
@@ -62,7 +62,7 @@ export function* dashboardDeleteItem({
   try {
     yield axios.delete("/api/crud/item", { data });
     yield put(dashboardDeleteItemSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
     yield put(dashboardDeleteItemFailure(error));
@@ -79,7 +79,7 @@ export function* newChampionship({
   try {
     yield axios.post("/api/crud/championship", data);
     yield put(newChampionshipSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/${seriesLink}/championships`);
   } catch (error) {
     yield put(newChampionshipFailure(error));
@@ -96,7 +96,7 @@ export function* updateChampionship({
   try {
     yield axios.put("/api/crud/championship", data);
     yield put(updateChampionshipSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/${seriesLink}/championships`);
   } catch (error) {
     yield put(updateChampionshipFailure(error));
@@ -113,7 +113,7 @@ export function* deleteChampionship({
   try {
     yield axios.delete("/api/crud/championship", { data });
     yield put(deleteChampionshipSuccess()); // for debug purposes
-    yield put(loadUiData());
+    yield put(fetchUiData());
     history.push(`/${seriesLink}/championships`);
   } catch (error) {
     yield put(deleteChampionshipFailure(error));

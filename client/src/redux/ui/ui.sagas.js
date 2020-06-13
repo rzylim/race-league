@@ -2,24 +2,24 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 
 import UiActionTypes from "./ui.types";
 
-import { loadUiDataSuccess, loadUiDataFailure } from "./ui.actions";
+import { fetchUiDataSuccess, fetchUiDataFailure } from "./ui.actions";
 
 import { getUiData } from "./ui.utils";
 
-export function* onLoadUiData() {
-  yield takeLatest(UiActionTypes.LOAD_UI_DATA_START, loadUiData);
+export function* onFetchUiData() {
+  yield takeLatest(UiActionTypes.FETCH_UI_DATA_START, fetchUiData);
 }
 
-export function* loadUiData() {
+export function* fetchUiData() {
   try {
     const uiData = yield getUiData();
     if (!uiData) return;
-    yield put(loadUiDataSuccess(uiData));
+    yield put(fetchUiDataSuccess(uiData));
   } catch (error) {
-    yield put(loadUiDataFailure(error));
+    yield put(fetchUiDataFailure(error));
   }
 }
 
 export function* uiSagas() {
-  yield all([call(onLoadUiData)]);
+  yield all([call(onFetchUiData)]);
 }

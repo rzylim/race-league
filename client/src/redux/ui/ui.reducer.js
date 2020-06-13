@@ -7,13 +7,13 @@ const INITIAL_STATE = {
 
 const uiReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UiActionTypes.LOAD_UI_DATA_SUCCESS:
+    case UiActionTypes.FETCH_UI_DATA_SUCCESS:
       return {
         ...state,
         uiData: action.payload,
         error: null,
       };
-    case UiActionTypes.LOAD_UI_DATA_FAILURE:
+    case UiActionTypes.FETCH_UI_DATA_FAILURE:
     case UiActionTypes.DASHBOARD_NEW_ITEM_FAILURE:
       return {
         ...state,

@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { checkUserSession } from "./redux/user/user.actions";
-import { loadUiData } from "./redux/ui/ui.actions";
+import { fetchUiData } from "./redux/ui/ui.actions";
 
 import Container from "react-bootstrap/Container";
 
@@ -16,11 +16,11 @@ import ChampionshipPage from "./pages/championship/championship.component";
 import NewEditChampionshipPage from "./pages/new-edit-championship/new-edit-championship.component";
 import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
 
-const App = ({ checkUserSession, loadUiData, currentUser }) => {
+const App = ({ checkUserSession, fetchUiData, currentUser }) => {
   useEffect(() => {
     checkUserSession();
-    loadUiData();
-  }, [checkUserSession, loadUiData]);
+    fetchUiData();
+  }, [checkUserSession, fetchUiData]);
 
   return (
     <>
@@ -57,7 +57,7 @@ const mapStateToProps = ({ user: { currentUser } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   checkUserSession: () => dispatch(checkUserSession()),
-  loadUiData: () => dispatch(loadUiData()),
+  fetchUiData: () => dispatch(fetchUiData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
