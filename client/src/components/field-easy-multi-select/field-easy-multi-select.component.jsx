@@ -11,6 +11,8 @@ import {
   Card,
 } from "react-bootstrap";
 
+import { searchStringProps } from "../../utilities/searchStringProps";
+
 import "./field-easy-multi-select.styles.scss";
 
 const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
@@ -18,22 +20,16 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
   const { value } = meta;
   const { setValue } = helpers;
 
-  const [search, setSearch] = useState("");
-
-  const searchProps = (props) =>
-    Object.values(props).reduce(
-      (acc, value) =>
-        acc || value.toString().toLowerCase().includes(search.toLowerCase()),
-      false
-    );
-
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
   const onClickSelect = (_id) => setValue(value.add(_id));
   const onClickDeselect = (_id) => {
     value.delete(_id);
     setValue(value);
+  };
+
+  const [search, setSearch] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
   };
 
   return (
@@ -70,7 +66,7 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
                 {options
                   .filter(
                     ({ _id, __v, ...otherProps }) =>
-                      !value.has(_id) && searchProps(otherProps)
+                      !value.has(_id) && searchStringProps(otherProps, search)
                   )
                   .map(({ _id, ...otherProps }) => (
                     <Component
