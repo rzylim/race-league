@@ -15,6 +15,12 @@ import { Container, Form as BSForm, Col, Button, Modal } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 import FieldSelect from "../../components/field-select/field-select.component";
+import FieldEasyMultiSelect from "../../components/field-easy-multi-select/field-easy-multi-select.component";
+
+import DriverItem from "../../components/driver-item/driver-item.component";
+import TeamItem from "../../components/team-item/team-item.component";
+
+import { convertShallowSetsToArrays } from "../../utilities/set";
 
 import "./new-edit-championship.styles.scss";
 
@@ -80,12 +86,20 @@ const NewEditChampionshipPageCore = ({
     setModalShow(false);
   };
 
+  const idArray = (arr) => arr.map(({ _id }) => _id);
+
   const initialValues = championship
-    ? Object.entries(championship).reduce((acc, [key, value]) => {
-        return typeof value === "object" && !Array.isArray(value)
-          ? { ...acc, [key]: value._id }
-          : { ...acc, [key]: value };
-      }, {})
+    ? {
+        _id: championship._id,
+        name: championship.name,
+        abbreviation: championship.abbreviation,
+        series: championship.series._id,
+        game: championship.game._id,
+        region: championship.region._id,
+        tier: championship.tier._id,
+        drivers: new Set(idArray(championship.drivers)),
+        teams: new Set(idArray(championship.teams)),
+      }
     : {
         _id: "",
         name: "",
@@ -94,6 +108,8 @@ const NewEditChampionshipPageCore = ({
         game: uiData.games[0]._id,
         region: uiData.regions[0]._id,
         tier: uiData.tiers[0]._id,
+        drivers: new Set(),
+        teams: new Set(),
       };
 
   return (
@@ -112,6 +128,7 @@ const NewEditChampionshipPageCore = ({
             .required("Required"),
         })}
         onSubmit={(formValues, { setSubmitting }) => {
+          formValues = convertShallowSetsToArrays(formValues);
           const submission = {
             seriesLink: uiData.series.find(
               ({ _id }) => _id === formValues.series
@@ -200,6 +217,18 @@ const NewEditChampionshipPageCore = ({
                 }))}
               />
             </BSForm.Group>
+            <FieldEasyMultiSelect
+              name="drivers"
+              label="Drivers"
+              options={uiData.users}
+              Component={DriverItem}
+            />
+            <FieldEasyMultiSelect
+              name="teams"
+              label="Teams"
+              options={uiData.teams}
+              Component={TeamItem}
+            />
           </BSForm.Row>
 
           <BSForm.Row>

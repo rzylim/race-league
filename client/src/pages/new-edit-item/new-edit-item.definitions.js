@@ -245,4 +245,27 @@ export const itemDict = () => ({
       </>
     ),
   },
+  team: {
+    modelName: "Team",
+    plural: "teams",
+    relatedCollections: [],
+    initialValues: (item) => (item ? item : { _id: "", name: "" }),
+    validationSchema: () =>
+      Yup.object({
+        name: Yup.string().required("Required"),
+      }),
+    form: () => (
+      <>
+        <BSForm.Row>
+          <BSForm.Group as={Col}>
+            <BSForm.Label htmlFor="name">Name</BSForm.Label>
+            <BSForm.Control as={Field} name="name" type="text" />
+            <BSForm.Text className="text-danger">
+              <ErrorMessage name="name" />
+            </BSForm.Text>
+          </BSForm.Group>
+        </BSForm.Row>
+      </>
+    ),
+  },
 });

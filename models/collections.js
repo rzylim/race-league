@@ -5,6 +5,7 @@ const { Tier } = require("./Tier");
 const { Game } = require("./Game");
 const { Car } = require("./Car");
 const { Track } = require("./Track");
+const { Team } = require("./Team");
 
 module.exports = {
   Series,
@@ -14,4 +15,5 @@ module.exports = {
   Game,
   Car,
   Track,
+  Team,
 };

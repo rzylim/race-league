@@ -14,6 +14,8 @@ import { Container, Form as BSForm, Col, Button, Modal } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 
+import { convertShallowSetsToArrays } from "../../utilities/set";
+
 import "./new-edit-item.styles.scss";
 
 const NewEditItemPage = ({
@@ -152,18 +154,6 @@ const NewEditItemPageCore = ({
     </Container>
   );
 };
-
-const convertShallowSetsToArrays = (obj) =>
-  Object.entries(obj).reduce(
-    (acc, [key, value]) =>
-      value instanceof Set
-        ? {
-            ...acc,
-            [key]: [...value],
-          }
-        : { ...acc, [key]: value },
-    {}
-  );
 
 const mapStateToProps = ({ ui: { uiData } }) => ({
   uiData,

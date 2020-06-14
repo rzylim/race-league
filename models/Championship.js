@@ -28,6 +28,9 @@ const championshipSchema = new mongoose.Schema({
     ref: "Tier",
     required: true,
   },
+  drivers: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  },
   teams: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
   },

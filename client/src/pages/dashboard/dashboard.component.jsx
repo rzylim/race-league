@@ -12,6 +12,7 @@ import TierItem from "../../components/tier-item/tier-item.component";
 import GameItem from "../../components/game-item/game-item.component";
 import CarItem from "../../components/car-item/car-item.component";
 import TrackItem from "../../components/track-item/track-item.component";
+import TeamItem from "../../components/team-item/team-item.component";
 
 import "./dashboard.styles.scss";
 
@@ -146,6 +147,26 @@ const DashboardPageCore = ({ itemType, uiData }) => (
                   _id={_id}
                   {...otherProps}
                   to={`/dashboard/track/${_id}`}
+                />
+              ))}
+            </Row>
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+      <Card>
+        <Accordion.Toggle as={Card.Header} eventKey="team">
+          Team
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="team">
+          <Card.Body>
+            <Row>
+              {<NewItem to="/dashboard/team/new" />}
+              {uiData.teams.map(({ _id, ...otherProps }) => (
+                <TeamItem
+                  key={_id}
+                  _id={_id}
+                  {...otherProps}
+                  to={`/dashboard/team/${_id}`}
                 />
               ))}
             </Row>

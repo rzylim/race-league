@@ -10,6 +10,7 @@ const { Championship } = require("../models/Championship");
 const { Game } = require("../models/Game");
 const { Car } = require("../models/Car");
 const { Track } = require("../models/Track");
+const { Team } = require("../models/Team");
 const { Role } = require("../models/Role");
 const { User } = require("../models/User");
 
@@ -23,10 +24,13 @@ router.route("/").get(async (req, res) => {
       .populate("series")
       .populate("game")
       .populate("region")
-      .populate("tier");
+      .populate("tier")
+      .populate("drivers")
+      .populate("teams");
     const games = await Game.find({}).select("-__v");
     const cars = await Car.find({}).select("-__v");
     const tracks = await Track.find({}).select("-__v");
+    const teams = await Team.find({}).select("-__v");
     const roles = await Role.find({}).select("-__v");
     let omitUserPermissions = "";
     if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
@@ -44,6 +48,7 @@ router.route("/").get(async (req, res) => {
       games,
       cars,
       tracks,
+      teams,
       roles,
       users,
     });
