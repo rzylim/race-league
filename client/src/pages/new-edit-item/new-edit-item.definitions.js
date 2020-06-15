@@ -252,7 +252,10 @@ export const itemDict = () => ({
     initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: () =>
       Yup.object({
-        name: Yup.string().required("Required"),
+        name: Yup.string()
+          .required("Required")
+          .min(2, "Must be 20 characters or less")
+          .max(20, "Must be 20 characters or less"),
       }),
     form: () => (
       <>
