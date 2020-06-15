@@ -29,7 +29,7 @@ const App = ({ checkUserSession, fetchUiData, currentUser }) => {
       <Header />
       <Container>
         <Switch>
-          <Route exact path="/" component={LandingPage} />{" "}
+          <Route exact path="/" component={LandingPage} />
           <Route
             path="/dashboard/:itemType/:itemId"
             component={NewEditItemPage}

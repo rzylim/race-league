@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 
 import {
   newChampionship,
@@ -24,13 +24,8 @@ import { convertShallowSetsToArrays } from "../../utilities/set";
 
 import "./new-edit-championship.styles.scss";
 
-const NewEditChampionshipPage = ({
-  match: {
-    params: { s, chId },
-  },
-  uiData,
-  ...otherProps
-}) => {
+const NewEditChampionshipPage = ({ uiData, ...otherProps }) => {
+  const { s, chId } = useParams();
   // wait for ui data to load.
   if (!uiData) return null;
   const thisSeries = uiData.series.find((e) => e.link === s);
@@ -71,8 +66,9 @@ const NewEditChampionshipPageCore = ({
   newChampionship,
   updateChampionship,
   deleteChampionship,
-  history,
 }) => {
+  const history = useHistory();
+
   const [modalShow, setModalShow] = useState(false);
 
   const handleClose = () => setModalShow(false);
@@ -280,4 +276,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(NewEditChampionshipPage));
+)(NewEditChampionshipPage);

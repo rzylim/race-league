@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 
 import {
   dasbboardNewItem,
@@ -18,13 +18,8 @@ import { convertShallowSetsToArrays } from "../../utilities/set";
 
 import "./new-edit-item.styles.scss";
 
-const NewEditItemPage = ({
-  match: {
-    params: { itemType, itemId },
-  },
-  uiData,
-  ...otherProps
-}) => {
+const NewEditItemPage = ({ uiData, ...otherProps }) => {
+  const { itemType, itemId } = useParams();
   // wait for ui data to load.
   if (!uiData) return null;
   const dict = itemDict(itemId)[itemType];
@@ -69,8 +64,8 @@ const NewEditItemPageCore = ({
   dasbboardNewItem,
   dashboardUpdateItem,
   dashboardDeleteItem,
-  history,
 }) => {
+  const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
 
   const handleClose = () => setModalShow(false);
@@ -165,7 +160,4 @@ const mapDispatchToProps = (dispatch) => ({
   dashboardDeleteItem: (data) => dispatch(dashboardDeleteItem(data)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(NewEditItemPage));
+export default connect(mapStateToProps, mapDispatchToProps)(NewEditItemPage);
