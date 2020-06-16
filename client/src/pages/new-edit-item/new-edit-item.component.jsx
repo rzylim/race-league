@@ -3,9 +3,12 @@ import { connect } from "react-redux";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 
 import {
-  dasbboardNewItem,
+  dashboardNewItem,
   dashboardUpdateItem,
   dashboardDeleteItem,
+  newChampionship,
+  updateChampionship,
+  deleteChampionship,
 } from "../../redux/crud/crud.actions";
 import { itemDict } from "./new-edit-item.definitions";
 
@@ -19,14 +22,27 @@ import { convertShallowSetsToArrays } from "../../utilities/set";
 import "./new-edit-item.styles.scss";
 
 const NewEditItemPage = ({ uiData, ...otherProps }) => {
-  const { itemType, itemId } = useParams();
+  const { s, itemType, itemId } = useParams();
   // wait for ui data to load.
   if (!uiData) return null;
-  const dict = itemDict(itemId)[itemType];
-  // return to dashboard if item type doesn't exist.
-  if (!dict || !uiData[dict.plural]) return <Redirect to="/dashboard" />;
 
-  const item = uiData[dict.plural].find((e) => e._id === itemId);
+  let dict = null;
+
+  // used in championship creation/ editing only
+  let thisSeries = null;
+  let on = null;
+
+  if (s) {
+    dict = itemDict().championship;
+    thisSeries = uiData.series.find((se) => se.link === s);
+    on = { seriesId: thisSeries._id };
+  } else {
+    dict = itemDict()[itemType];
+    // return to dashboard if item type doesn't exist.
+    if (!dict || !uiData[dict.plural]) return <Redirect to="/dashboard" />;
+  }
+
+  const item = uiData[dict.plural].find((item) => item._id === itemId);
 
   const relatedCollections = dict.relatedCollections.reduce(
     (acc, collectionName) => ({
@@ -38,33 +54,51 @@ const NewEditItemPage = ({ uiData, ...otherProps }) => {
 
   return (
     <Can
-      perform={["dashboard:edit"]}
+      perform={dict.perform}
+      on={on}
       yes={() => (
         <NewEditItemPageCore
+          thisSeries={thisSeries}
           itemType={itemType}
           item={item}
           dict={dict}
           currItems={uiData[dict.plural].filter((e) => e._id !== itemId)}
           relatedCollections={relatedCollections}
+          uiData={uiData}
           {...otherProps}
         />
       )}
-      no={() => <Redirect to="/dashboard" />}
+      no={() =>
+        s ? (
+          <Redirect to={`/${s}/championship/${itemId}`} />
+        ) : (
+          <Redirect to="/dashboard" />
+        )
+      }
     />
   );
 };
 
 // item used to differentiate between editing or creation
 const NewEditItemPageCore = ({
+  thisSeries,
   itemType,
   item,
   dict: { modelName, initialValues, validationSchema, form },
   currItems,
   relatedCollections,
-  dasbboardNewItem,
+  uiData,
+  dashboardNewItem,
   dashboardUpdateItem,
   dashboardDeleteItem,
+  newChampionship,
+  updateChampionship,
+  deleteChampionship,
 }) => {
+  const newItem = thisSeries ? newChampionship : dashboardNewItem;
+  const updateItem = thisSeries ? updateChampionship : dashboardUpdateItem;
+  const deleteItem = thisSeries ? deleteChampionship : dashboardDeleteItem;
+
   const history = useHistory();
   const [modalShow, setModalShow] = useState(false);
 
@@ -72,7 +106,7 @@ const NewEditItemPageCore = ({
   const handleShow = () => setModalShow(true);
 
   const handleDelete = () => {
-    dashboardDeleteItem({
+    deleteItem({
       collection: modelName,
       itemType,
       _id: item._id,
@@ -85,20 +119,24 @@ const NewEditItemPageCore = ({
     <Container id="new-item-page">
       <h2>{(item ? "Edit" : "New") + ` ${modelName}`}</h2>
       <Formik
-        initialValues={initialValues(item)}
+        initialValues={initialValues(item, thisSeries, uiData)}
         validationSchema={validationSchema(currItems)}
         onSubmit={(formValues, { setSubmitting }) => {
           formValues = convertShallowSetsToArrays(formValues);
+          const selectedSeries = uiData.series.find(
+            ({ _id }) => _id === formValues.series
+          );
           const submission = {
+            seriesLink: selectedSeries ? selectedSeries.link : null,
             collection: modelName,
             itemType,
             formValues,
             history,
           };
           if (item) {
-            dashboardUpdateItem(submission);
+            updateItem(submission);
           } else {
-            dasbboardNewItem(submission);
+            newItem(submission);
           }
           setSubmitting(false);
         }}
@@ -115,7 +153,7 @@ const NewEditItemPageCore = ({
               </BSForm.Group>
             </BSForm.Row>
           ) : null}
-          {form(relatedCollections)}
+          {form(relatedCollections, uiData)}
           <BSForm.Row>
             {item ? (
               <Col>
@@ -132,9 +170,13 @@ const NewEditItemPageCore = ({
           </BSForm.Row>
           <Modal show={modalShow} onHide={handleClose} animation={false}>
             <Modal.Header closeButton>
-              <Modal.Title>Warning: Delete Item</Modal.Title>
+              <Modal.Title>{`Warning: Delete ${modelName} Item`}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Proceed with deletion?</Modal.Body>
+            <Modal.Body>
+              {thisSeries
+                ? "All associated races and results will also be deleted. Proceed?"
+                : "Proceed with deletion?"}
+            </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 Cancel
@@ -155,9 +197,12 @@ const mapStateToProps = ({ ui: { uiData } }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dasbboardNewItem: (data) => dispatch(dasbboardNewItem(data)),
+  dashboardNewItem: (data) => dispatch(dashboardNewItem(data)),
   dashboardUpdateItem: (data) => dispatch(dashboardUpdateItem(data)),
   dashboardDeleteItem: (data) => dispatch(dashboardDeleteItem(data)),
+  newChampionship: (data) => dispatch(newChampionship(data)),
+  updateChampionship: (data) => dispatch(updateChampionship(data)),
+  deleteChampionship: (data) => dispatch(deleteChampionship(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewEditItemPage);

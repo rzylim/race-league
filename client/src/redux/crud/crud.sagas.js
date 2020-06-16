@@ -4,8 +4,8 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 import CrudActionTypes from "./crud.types";
 
 import {
-  dasbboardNewItemSuccess,
-  dasbboardNewItemFailure,
+  dashboardNewItemSuccess,
+  dashboardNewItemFailure,
   dashboardUpdateItemSuccess,
   dashboardUpdateItemFailure,
   dashboardDeleteItemSuccess,
@@ -20,18 +20,18 @@ import {
 
 import { fetchUiData } from "../ui/ui.actions";
 
-export function* onDasbboardNewItem() {
-  yield takeLatest(CrudActionTypes.DASHBOARD_NEW_ITEM, dasbboardNewItem);
+export function* onDashboardNewItem() {
+  yield takeLatest(CrudActionTypes.DASHBOARD_NEW_ITEM, dashboardNewItem);
 }
 
-export function* dasbboardNewItem({ payload: { history, itemType, ...data } }) {
+export function* dashboardNewItem({ payload: { history, itemType, ...data } }) {
   try {
     yield axios.post("/api/crud/item", data);
-    yield put(dasbboardNewItemSuccess()); // for debug purposes
+    yield put(dashboardNewItemSuccess()); // for debug purposes
     yield put(fetchUiData());
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
-    yield put(dasbboardNewItemFailure(error));
+    yield put(dashboardNewItemFailure(error));
   }
 }
 
@@ -122,7 +122,7 @@ export function* deleteChampionship({
 
 export function* crudSagas() {
   yield all([
-    call(onDasbboardNewItem),
+    call(onDashboardNewItem),
     call(onDashboardUpdateItem),
     call(onDashboardDeleteItem),
     call(onNewChampionship),

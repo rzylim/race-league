@@ -1,15 +1,15 @@
 import CrudActionTypes from "./crud.types";
 
-export const dasbboardNewItem = (data) => ({
+export const dashboardNewItem = (data) => ({
   type: CrudActionTypes.DASHBOARD_NEW_ITEM,
   payload: data,
 });
 
-export const dasbboardNewItemSuccess = () => ({
+export const dashboardNewItemSuccess = () => ({
   type: CrudActionTypes.DASHBOARD_NEW_ITEM_SUCCESS,
 });
 
-export const dasbboardNewItemFailure = (error) => ({
+export const dashboardNewItemFailure = (error) => ({
   type: CrudActionTypes.DASHBOARD_NEW_ITEM_FAILURE,
   payload: error,
 });

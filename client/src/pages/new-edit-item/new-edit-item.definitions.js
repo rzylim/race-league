@@ -9,14 +9,18 @@ import FieldEasyMultiSelect from "../../components/field-easy-multi-select/field
 
 import CarItem from "../../components/car-item/car-item.component";
 import TrackItem from "../../components/track-item/track-item.component";
+import DriverItem from "../../components/driver-item/driver-item.component";
+import TeamItem from "../../components/team-item/team-item.component";
 
 import { yearRange } from "../../utilities/yearRange";
+import { idArray } from "../../utilities/idArray";
 
 export const itemDict = () => ({
   series: {
     modelName: "Series",
     plural: "series",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) => (item ? item : { _id: "", name: "", link: "" }),
     validationSchema: (currItems) =>
       Yup.object({
@@ -56,6 +60,7 @@ export const itemDict = () => ({
     modelName: "Region",
     plural: "regions",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: (currItems) =>
       Yup.object({
@@ -83,6 +88,7 @@ export const itemDict = () => ({
     modelName: "Tier",
     plural: "tiers",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) => (item ? item : { _id: "", name: "", colour: "" }),
     validationSchema: (currItems) =>
       Yup.object({
@@ -117,6 +123,7 @@ export const itemDict = () => ({
     modelName: "Game",
     plural: "games",
     relatedCollections: ["cars", "tracks"],
+    perform: ["dashboard:edit"],
     initialValues: (item) =>
       item
         ? { ...item, cars: new Set(item.cars), tracks: new Set(item.tracks) }
@@ -163,6 +170,7 @@ export const itemDict = () => ({
     modelName: "Car",
     plural: "cars",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) =>
       item ? item : { _id: "", model: "", make: "", year: yearRange()[0] },
     validationSchema: () =>
@@ -211,6 +219,7 @@ export const itemDict = () => ({
     modelName: "Track",
     plural: "tracks",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) =>
       item ? item : { _id: "", name: "", year: yearRange()[0] },
     validationSchema: () =>
@@ -249,6 +258,7 @@ export const itemDict = () => ({
     modelName: "Team",
     plural: "teams",
     relatedCollections: [],
+    perform: ["dashboard:edit"],
     initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: () =>
       Yup.object({
@@ -267,6 +277,125 @@ export const itemDict = () => ({
               <ErrorMessage name="name" />
             </BSForm.Text>
           </BSForm.Group>
+        </BSForm.Row>
+      </>
+    ),
+  },
+  championship: {
+    modelName: "Championship",
+    plural: "championships",
+    relatedCollections: ["users", "teams"],
+    perform: ["series:edit"],
+    initialValues: (championship, thisSeries, uiData) =>
+      championship
+        ? {
+            _id: championship._id,
+            name: championship.name,
+            abbreviation: championship.abbreviation,
+            series: championship.series._id,
+            game: championship.game._id,
+            region: championship.region._id,
+            tier: championship.tier._id,
+            drivers: new Set(idArray(championship.drivers)),
+            teams: new Set(idArray(championship.teams)),
+          }
+        : {
+            _id: "",
+            name: "",
+            abbreviation: "",
+            series: thisSeries._id,
+            game: uiData.games[0]._id,
+            region: uiData.regions[0]._id,
+            tier: uiData.tiers[0]._id,
+            drivers: new Set(),
+            teams: new Set(),
+          },
+    validationSchema: (currItems) =>
+      Yup.object({
+        name: Yup.string()
+          .max(60, "Must be 60 characters or less")
+          .notOneOf(currItems.map(({ name }) => name))
+          .required("Required"),
+        abbreviation: Yup.string()
+          .max(15, "Must be 15 characters or less")
+          .notOneOf(currItems.map(({ abbreviation }) => abbreviation))
+          .required("Required"),
+      }),
+    form: ({ users, teams }, uiData) => (
+      <>
+        <BSForm.Row>
+          <BSForm.Group as={Col} xs={12} md={9}>
+            <BSForm.Label htmlFor="name">Name</BSForm.Label>
+            <BSForm.Control as={Field} name="name" type="text" />
+            <BSForm.Text className="text-danger">
+              <ErrorMessage name="name" />
+            </BSForm.Text>
+          </BSForm.Group>
+          <BSForm.Group as={Col} xs={12} md={3}>
+            <BSForm.Label htmlFor="abbreviation">Abbreviation</BSForm.Label>
+            <BSForm.Control as={Field} name="abbreviation" type="text" />
+            <BSForm.Text className="text-danger">
+              <ErrorMessage name="abbreviation" />
+            </BSForm.Text>
+          </BSForm.Group>
+        </BSForm.Row>
+        <BSForm.Row>
+          <BSForm.Group as={Col} xs={6} md={4}>
+            <BSForm.Label htmlFor="series">Series</BSForm.Label>
+            <BSForm.Control
+              as={FieldSelect}
+              name="series"
+              options={uiData.series.map(({ _id, name }) => ({
+                value: _id,
+                text: name,
+              }))}
+            />
+          </BSForm.Group>
+          <BSForm.Group as={Col} xs={6} md={3}>
+            <BSForm.Label htmlFor="game">Game</BSForm.Label>
+            <BSForm.Control
+              as={FieldSelect}
+              name="game"
+              options={uiData.games.map(({ _id, name }) => ({
+                value: _id,
+                text: name,
+              }))}
+            />
+          </BSForm.Group>
+          <BSForm.Group as={Col} xs={8} md={3}>
+            <BSForm.Label htmlFor="region">Region</BSForm.Label>
+            <BSForm.Control
+              as={FieldSelect}
+              name="region"
+              options={uiData.regions.map(({ _id, name }) => ({
+                value: _id,
+                text: name,
+              }))}
+            />
+          </BSForm.Group>
+          <BSForm.Group as={Col} xs={4} md={2}>
+            <BSForm.Label htmlFor="tier">Tier</BSForm.Label>
+            <BSForm.Control
+              as={FieldSelect}
+              name="tier"
+              options={uiData.tiers.map(({ _id, name }) => ({
+                value: _id,
+                text: name,
+              }))}
+            />
+          </BSForm.Group>
+          <FieldEasyMultiSelect
+            name="drivers"
+            label="Drivers"
+            options={users}
+            Component={DriverItem}
+          />
+          <FieldEasyMultiSelect
+            name="teams"
+            label="Teams"
+            options={teams}
+            Component={TeamItem}
+          />
         </BSForm.Row>
       </>
     ),
