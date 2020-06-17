@@ -17,7 +17,10 @@ import ChampionshipItem from "../../components/championship-item/championship-it
 import Can from "../../components/can/can.component";
 import NewItem from "../../components/new-item/new-item.component";
 
-import { searchStringProps } from "../../utilities/search";
+import {
+  searchStringProps,
+  shallowFindByKeyValue,
+} from "../../utilities/search";
 
 import { useFilterState } from "./championships.hooks.js";
 
@@ -49,7 +52,7 @@ const ChampionshipsPage = ({
 }) => {
   // wait for ui data to load.
   if (!uiData) return null;
-  const thisSeries = uiData.series.find((e) => e.link === s);
+  const thisSeries = shallowFindByKeyValue(uiData.series, "link", s);
   // return to dashboard if item type doesn't exist.
   if (!thisSeries) return <Redirect to="/" />;
 
@@ -60,10 +63,10 @@ const ChampionshipsPage = ({
 
 const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
   let initialState = {
-    series: uiData.series.reduce(initialStateReducer, {}),
-    region: uiData.regions.reduce(initialStateReducer, {}),
-    tier: uiData.tiers.reduce(initialStateReducer, {}),
-    game: uiData.games.reduce(initialStateReducer, {}),
+    series: Object.values(uiData.series).reduce(initialStateReducer, {}),
+    region: Object.values(uiData.regions).reduce(initialStateReducer, {}),
+    tier: Object.values(uiData.tiers).reduce(initialStateReducer, {}),
+    game: Object.values(uiData.games).reduce(initialStateReducer, {}),
     search: "",
   };
 
@@ -75,7 +78,7 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
   const [prevLink, setPrevLink] = useState(null);
   if (s && prevLink !== s) {
     setPrevLink(s);
-    newFilterSelection.series = uiData.series.reduce(
+    newFilterSelection.series = Object.values(uiData.series).reduce(
       (acc, se) =>
         se.name === thisSeries.name
           ? { ...acc, [se.name]: true }
@@ -98,7 +101,7 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
 
     // region checkboxes (disable if not valid, okay since list is limited in length)
     const newRegionSet = new Set(
-      uiData.series.reduce(
+      Object.values(uiData.series).reduce(
         (acc, s) =>
           newFilterSelection.series[s.name] ? [...acc, ...s.regions] : acc,
         []
@@ -112,7 +115,7 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
 
     // tier checkboxes (disable if not valid, okay since list is limited in length)
     const newTierSet = new Set(
-      uiData.series.reduce(
+      Object.values(uiData.series).reduce(
         (acc, s) =>
           newFilterSelection.series[s.name] ? [...acc, ...s.tiers] : acc,
         []
@@ -126,7 +129,7 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
 
     // game checkboxes (hide if invalid, since list can be very long.)
     const newGameSet = new Set(
-      uiData.series.reduce(
+      Object.values(uiData.series).reduce(
         (acc, s) =>
           newFilterSelection.series[s.name] ? [...acc, ...s.games] : acc,
         []
@@ -251,16 +254,16 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
             no={() => null}
           />
         ) : null}
-        {uiData.championships
+        {Object.entries(uiData.championships)
           .filter(
-            ({ name, abbreviation, series, region, tier, game }) =>
+            ([_id, { name, abbreviation, series, region, tier, game }]) =>
               selection.series[series.name] &&
               selection.region[region.name] &&
               selection.tier[tier.name] &&
               selection.game[game.name] &&
               searchStringProps({ name, abbreviation }, selection.search)
           )
-          .map(({ _id, abbreviation, series, game, region, tier }) => (
+          .map(([_id, { abbreviation, series, game, region, tier }]) => (
             <ChampionshipItem
               chId={_id}
               key={_id}

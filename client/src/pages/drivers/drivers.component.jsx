@@ -51,9 +51,9 @@ const DriversPage = ({ uiData }) => {
         </Card>
       </Accordion>
       <Row>
-        {uiData.users
-          .filter(({ username }) => searchStringProps({ username }, search))
-          .map(({ _id, username }) => (
+        {Object.entries(uiData.users)
+          .filter(([, { username }]) => searchStringProps({ username }, search))
+          .map(([_id, { username }]) => (
             <DriverItem
               dvrId={_id}
               key={_id}

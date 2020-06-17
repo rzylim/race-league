@@ -18,6 +18,7 @@ import { Container, Form as BSForm, Col, Button, Modal } from "react-bootstrap";
 import Can from "../../components/can/can.component";
 
 import { convertShallowSetsToArrays } from "../../utilities/set";
+import { shallowFindByKeyValue } from "../../utilities/search";
 
 import "./new-edit-item.styles.scss";
 
@@ -34,7 +35,7 @@ const NewEditItemPage = ({ uiData, ...otherProps }) => {
 
   if (s) {
     dict = itemDict().championship;
-    thisSeries = uiData.series.find((se) => se.link === s);
+    thisSeries = shallowFindByKeyValue(uiData.series, "link", s);
     on = { seriesId: thisSeries._id };
   } else {
     dict = itemDict()[itemType];
@@ -42,7 +43,7 @@ const NewEditItemPage = ({ uiData, ...otherProps }) => {
     if (!dict || !uiData[dict.plural]) return <Redirect to="/dashboard" />;
   }
 
-  const item = uiData[dict.plural].find((item) => item._id === itemId);
+  const item = uiData[dict.plural][itemId];
 
   const relatedCollections = dict.relatedCollections.reduce(
     (acc, collectionName) => ({
@@ -60,9 +61,12 @@ const NewEditItemPage = ({ uiData, ...otherProps }) => {
         <NewEditItemPageCore
           thisSeries={thisSeries}
           itemType={itemType}
+          itemId={itemId}
           item={item}
           dict={dict}
-          currItems={uiData[dict.plural].filter((e) => e._id !== itemId)}
+          currItems={Object.keys(uiData[dict.plural]).filter(
+            (_id) => _id !== itemId
+          )}
           relatedCollections={relatedCollections}
           uiData={uiData}
           {...otherProps}
@@ -83,6 +87,7 @@ const NewEditItemPage = ({ uiData, ...otherProps }) => {
 const NewEditItemPageCore = ({
   thisSeries,
   itemType,
+  itemId,
   item,
   dict: { modelName, initialValues, validationSchema, form },
   currItems,
@@ -109,7 +114,7 @@ const NewEditItemPageCore = ({
     deleteItem({
       collection: modelName,
       itemType,
-      _id: item._id,
+      _id: itemId,
       history,
     });
     setModalShow(false);
@@ -119,13 +124,11 @@ const NewEditItemPageCore = ({
     <Container id="new-item-page">
       <h2>{(item ? "Edit" : "New") + ` ${modelName}`}</h2>
       <Formik
-        initialValues={initialValues(item, thisSeries, uiData)}
+        initialValues={initialValues(item, itemId, thisSeries, uiData)}
         validationSchema={validationSchema(currItems)}
         onSubmit={(formValues, { setSubmitting }) => {
           formValues = convertShallowSetsToArrays(formValues);
-          const selectedSeries = uiData.series.find(
-            ({ _id }) => _id === formValues.series
-          );
+          const selectedSeries = uiData.series[formValues.series];
           const submission = {
             seriesLink: selectedSeries ? selectedSeries.link : null,
             collection: modelName,

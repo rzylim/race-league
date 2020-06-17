@@ -6,6 +6,8 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
 
+import { shallowFindByKeyValue } from "../../utilities/search";
+
 import "./championship.styles.scss";
 
 const ChampionshipPage = ({
@@ -16,7 +18,7 @@ const ChampionshipPage = ({
 }) => {
   // wait for ui data to load.
   if (!uiData) return null;
-  const thisSeries = uiData.series.find((e) => e.link === s);
+  const thisSeries = shallowFindByKeyValue(uiData.series, "link", s);
   if (!thisSeries) return <Redirect to="/" />;
 
   return (

@@ -24,9 +24,7 @@ router.route("/").get(async (req, res) => {
       .populate("series")
       .populate("game")
       .populate("region")
-      .populate("tier")
-      .populate("drivers")
-      .populate("teams");
+      .populate("tier");
     const games = await Game.find({}).select("-__v");
     const cars = await Car.find({}).select("-__v");
     const tracks = await Track.find({}).select("-__v");

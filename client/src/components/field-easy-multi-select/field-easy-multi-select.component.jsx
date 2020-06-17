@@ -21,6 +21,7 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
   const { setValue } = helpers;
 
   const onClickSelect = (_id) => setValue(value.add(_id));
+
   const onClickDeselect = (_id) => {
     value.delete(_id);
     setValue(value);
@@ -36,9 +37,9 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
     <BSForm.Group as={Col} xs={12} className="field-easy-multi-select">
       <BSForm.Label>{label}</BSForm.Label>
       <Row className="selection">
-        {options
-          .filter(({ _id }) => value.has(_id))
-          .map(({ _id, ...otherProps }) => (
+        {Object.entries(options)
+          .filter(([_id]) => value.has(_id))
+          .map(([_id, otherProps]) => (
             <Component
               key={_id}
               {...otherProps}
@@ -63,12 +64,12 @@ const FieldEasyMultiSelect = ({ name, label, options, Component }) => {
                     />
                   </Container>
                 </Col>
-                {options
+                {Object.entries(options)
                   .filter(
-                    ({ _id, __v, ...otherProps }) =>
+                    ([_id, otherProps]) =>
                       !value.has(_id) && searchStringProps(otherProps, search)
                   )
-                  .map(({ _id, ...otherProps }) => (
+                  .map(([_id, otherProps]) => (
                     <Component
                       key={_id}
                       {...otherProps}

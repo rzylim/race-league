@@ -13,7 +13,6 @@ import DriverItem from "../../components/driver-item/driver-item.component";
 import TeamItem from "../../components/team-item/team-item.component";
 
 import { yearRange } from "../../utilities/yearRange";
-import { idArray } from "../../utilities/idArray";
 
 export const itemDict = () => ({
   series: {
@@ -21,7 +20,8 @@ export const itemDict = () => ({
     plural: "series",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) => (item ? item : { _id: "", name: "", link: "" }),
+    initialValues: (item, _id) =>
+      item ? { ...item, _id } : { _id: "", name: "", link: "" },
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -61,7 +61,8 @@ export const itemDict = () => ({
     plural: "regions",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) => (item ? item : { _id: "", name: "" }),
+    initialValues: (item, _id) =>
+      item ? { ...item, _id } : { _id: "", name: "" },
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -89,7 +90,8 @@ export const itemDict = () => ({
     plural: "tiers",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) => (item ? item : { _id: "", name: "", colour: "" }),
+    initialValues: (item, _id) =>
+      item ? { ...item, _id } : { _id: "", name: "", colour: "" },
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -124,9 +126,14 @@ export const itemDict = () => ({
     plural: "games",
     relatedCollections: ["cars", "tracks"],
     perform: ["dashboard:edit"],
-    initialValues: (item) =>
+    initialValues: (item, _id) =>
       item
-        ? { ...item, cars: new Set(item.cars), tracks: new Set(item.tracks) }
+        ? {
+            ...item,
+            _id,
+            cars: new Set(Object.keys(item.cars)),
+            tracks: new Set(Object.keys(item.tracks)),
+          }
         : {
             _id: "",
             name: "",
@@ -171,8 +178,10 @@ export const itemDict = () => ({
     plural: "cars",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) =>
-      item ? item : { _id: "", model: "", make: "", year: yearRange()[0] },
+    initialValues: (item, _id) =>
+      item
+        ? { ...item, _id }
+        : { _id: "", model: "", make: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         model: Yup.string()
@@ -220,8 +229,8 @@ export const itemDict = () => ({
     plural: "tracks",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) =>
-      item ? item : { _id: "", name: "", year: yearRange()[0] },
+    initialValues: (item, _id) =>
+      item ? { ...item, _id } : { _id: "", name: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         name: Yup.string().required("Required"),
@@ -259,7 +268,8 @@ export const itemDict = () => ({
     plural: "teams",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item) => (item ? item : { _id: "", name: "" }),
+    initialValues: (item, _id) =>
+      item ? { ...item, _id } : { _id: "", name: "" },
     validationSchema: () =>
       Yup.object({
         name: Yup.string()
@@ -286,27 +296,27 @@ export const itemDict = () => ({
     plural: "championships",
     relatedCollections: ["users", "teams"],
     perform: ["series:edit"],
-    initialValues: (championship, thisSeries, uiData) =>
+    initialValues: (championship, _id, thisSeries, uiData) =>
       championship
         ? {
-            _id: championship._id,
+            _id,
             name: championship.name,
             abbreviation: championship.abbreviation,
             series: championship.series._id,
             game: championship.game._id,
             region: championship.region._id,
             tier: championship.tier._id,
-            drivers: new Set(idArray(championship.drivers)),
-            teams: new Set(idArray(championship.teams)),
+            drivers: new Set(Object.keys(championship.drivers)),
+            teams: new Set(Object.keys(championship.teams)),
           }
         : {
             _id: "",
             name: "",
             abbreviation: "",
             series: thisSeries._id,
-            game: uiData.games[0]._id,
-            region: uiData.regions[0]._id,
-            tier: uiData.tiers[0]._id,
+            game: Object.keys(uiData.games)[0],
+            region: Object.keys(uiData.regions)[0],
+            tier: Object.keys(uiData.tiers)[0],
             drivers: new Set(),
             teams: new Set(),
           },
@@ -345,7 +355,7 @@ export const itemDict = () => ({
             <BSForm.Control
               as={FieldSelect}
               name="series"
-              options={uiData.series.map(({ _id, name }) => ({
+              options={Object.entries(uiData.series).map(([_id, { name }]) => ({
                 value: _id,
                 text: name,
               }))}
@@ -356,7 +366,7 @@ export const itemDict = () => ({
             <BSForm.Control
               as={FieldSelect}
               name="game"
-              options={uiData.games.map(({ _id, name }) => ({
+              options={Object.entries(uiData.games).map(([_id, { name }]) => ({
                 value: _id,
                 text: name,
               }))}
@@ -367,10 +377,12 @@ export const itemDict = () => ({
             <BSForm.Control
               as={FieldSelect}
               name="region"
-              options={uiData.regions.map(({ _id, name }) => ({
-                value: _id,
-                text: name,
-              }))}
+              options={Object.entries(uiData.regions).map(
+                ([_id, { name }]) => ({
+                  value: _id,
+                  text: name,
+                })
+              )}
             />
           </BSForm.Group>
           <BSForm.Group as={Col} xs={4} md={2}>
@@ -378,7 +390,7 @@ export const itemDict = () => ({
             <BSForm.Control
               as={FieldSelect}
               name="tier"
-              options={uiData.tiers.map(({ _id, name }) => ({
+              options={Object.entries(uiData.tiers).map(([_id, { name }]) => ({
                 value: _id,
                 text: name,
               }))}

@@ -8,3 +8,6 @@ export const searchStringProps = (props, searchTerm) =>
 export const handleSearchChange = (event, setSearch) => {
   setSearch(event.target.value);
 };
+
+export const shallowFindByKeyValue = (obj, k, v) =>
+  Object.values(obj).filter((value) => value[k] === v)[0];

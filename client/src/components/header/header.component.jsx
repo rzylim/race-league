@@ -20,7 +20,7 @@ const Header = ({ currentUser, uiData }) => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {uiData
-            ? uiData.series.map(({ name, link }) => (
+            ? Object.values(uiData.series).map(({ name, link }) => (
                 <NavDropdown title={name} key={link}>
                   <NavDropdown.Item as={Link} to={`/${link}/championships`}>
                     Championships
