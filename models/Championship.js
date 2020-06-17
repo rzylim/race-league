@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { roundSchema } = require("./Round");
+
 const championshipSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -33,6 +35,9 @@ const championshipSchema = new mongoose.Schema({
   },
   teams: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
+  },
+  rounds: {
+    type: [roundSchema],
   },
 });
 const Championship = mongoose.model("Championship", championshipSchema);

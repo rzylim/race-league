@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import Can from "../../components/can/can.component";
@@ -17,6 +17,7 @@ const ChampionshipPage = ({
   // wait for ui data to load.
   if (!uiData) return null;
   const thisSeries = uiData.series.find((e) => e.link === s);
+  if (!thisSeries) return <Redirect to="/" />;
 
   return (
     <Container id="championship-page">

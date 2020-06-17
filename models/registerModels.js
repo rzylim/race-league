@@ -9,3 +9,4 @@ require("./Team");
 require("./Tier");
 require("./Track");
 require("./User");
+require("./Round");
