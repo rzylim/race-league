@@ -250,7 +250,7 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
           <Can
             perform={["series:edit"]}
             on={{ seriesId: thisSeries._id }}
-            yes={() => <NewItem to={`/${thisSeries.link}/championship/new`} />}
+            yes={() => <NewItem to="/championship/new" />}
             no={() => null}
           />
         ) : null}
@@ -263,12 +263,11 @@ const ChampionshipsPageCore = ({ s, uiData, thisSeries }) => {
               selection.game[game.name] &&
               searchStringProps({ name, abbreviation }, selection.search)
           )
-          .map(([_id, { abbreviation, series, game, region, tier }]) => (
+          .map(([_id, { abbreviation, game, region, tier }]) => (
             <ChampionshipItem
               chId={_id}
               key={_id}
               abbreviation={abbreviation}
-              seriesLink={series.link}
               game={game.name}
               region={region.name}
               tier={tier.name}

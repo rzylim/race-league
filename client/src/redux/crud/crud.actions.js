@@ -70,6 +70,48 @@ export const updateChampionshipFailure = (error) => ({
   payload: error,
 });
 
+// export const newChampionshipSubitem = (data) => ({
+//   type: CrudActionTypes.NEW_CHAMPIONSHIP_SUBITEM,
+//   payload: data,
+// });
+
+// export const newChampionshipSubitemSuccess = () => ({
+//   type: CrudActionTypes.NEW_CHAMPIONSHIP_SUBITEM_SUCCESS,
+// });
+
+// export const newChampionshipSubitemFailure = (error) => ({
+//   type: CrudActionTypes.NEW_CHAMPIONSHIP_SUBITEM_FAILURE,
+//   payload: error,
+// });
+
+export const updateChampionshipSubitem = (data) => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP_SUBITEM,
+  payload: data,
+});
+
+export const updateChampionshipSubitemSuccess = () => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP_SUBITEM_SUCCESS,
+});
+
+export const updateChampionshipSubitemFailure = (error) => ({
+  type: CrudActionTypes.UPDATE_CHAMPIONSHIP_SUBITEM_FAILURE,
+  payload: error,
+});
+
+// export const deleteChampionshipSubitem = (data) => ({
+//   type: CrudActionTypes.DELETE_CHAMPIONSHIP_SUBITEM,
+//   payload: data,
+// });
+
+// export const deleteChampionshipSubitemSuccess = () => ({
+//   type: CrudActionTypes.DELETE_CHAMPIONSHIP_SUBITEM_SUCCESS,
+// });
+
+// export const deleteChampionshipSubitemFailure = (error) => ({
+//   type: CrudActionTypes.DELETE_CHAMPIONSHIP_SUBITEM_FAILURE,
+//   payload: error,
+// });
+
 export const deleteChampionship = (data) => ({
   type: CrudActionTypes.DELETE_CHAMPIONSHIP,
   payload: data,

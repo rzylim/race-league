@@ -38,12 +38,18 @@ const App = ({ checkUserSession, fetchUiData, currentUser }) => {
 
           <Route path="/:s/championships" component={ChampionshipsPage} />
           {/* creation and editing of championships */}
+          {/* <Route
+            path="/:itemType/:itemId/:subItemType/:subItemId/edit"
+            component={NewEditItemPage}
+          /> */}
           <Route
-            path="/:s/:itemType/:itemId/edit"
+            path="/:parentItemType/:parentItemId/:itemType/:itemId"
             component={NewEditItemPage}
           />
-          <Route path="/:s/:itemType/new" component={NewEditItemPage} />
-          <Route path="/:s/championship/:chId" component={ChampionshipPage} />
+          <Route path="/:itemType/:itemId/edit" component={NewEditItemPage} />
+          <Route path="/:itemType/new" component={NewEditItemPage} />
+
+          <Route path="/championship/:chId" component={ChampionshipPage} />
 
           <Route path="/drivers" component={DriversPage} />
           <Route path="/driver/:dvrId" component={DriverPage} />

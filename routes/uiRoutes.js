@@ -31,7 +31,10 @@ router.route("/").get(async (req, res) => {
     const teams = await Team.find({}).select("-__v");
     const roles = await Role.find({}).select("-__v");
     let omitUserPermissions = "";
-    if (!checkPermissions(global.roles, req.user.role, ["dashboard:edit"])) {
+    if (
+      !req.user ||
+      !checkPermissions(global.roles, req.user.role, ["dashboard:edit"])
+    ) {
       omitUserPermissions +=
         "-role -seriesPermissions -championshipPermissions";
     }

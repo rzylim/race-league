@@ -14,21 +14,37 @@ import {
   newChampionshipFailure,
   updateChampionshipSuccess,
   updateChampionshipFailure,
+  updateChampionshipSubitemSuccess,
+  updateChampionshipSubitemFailure,
   deleteChampionshipSuccess,
   deleteChampionshipFailure,
 } from "./crud.actions";
 
-import { fetchUiData } from "../ui/ui.actions";
+import {
+  fetchUiData,
+  uiNewUpdateItem,
+  uiDeleteItem,
+  uiUpdateSeries,
+} from "../ui/ui.actions";
+
+import { objectArraysToObjectsReducer } from "../../utilities/objectArraysToObjects";
 
 export function* onDashboardNewItem() {
   yield takeLatest(CrudActionTypes.DASHBOARD_NEW_ITEM, dashboardNewItem);
 }
 
-export function* dashboardNewItem({ payload: { history, itemType, ...data } }) {
+export function* dashboardNewItem({
+  payload: { history, collection, itemType, ...data },
+}) {
   try {
-    yield axios.post("/api/crud/item", data);
+    const res = yield axios.post("/api/crud/item", data);
     yield put(dashboardNewItemSuccess()); // for debug purposes
-    yield put(fetchUiData());
+    yield put(
+      uiNewUpdateItem({
+        collection,
+        data: Object.entries(res.data).reduce(objectArraysToObjectsReducer, {}),
+      })
+    );
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
     yield put(dashboardNewItemFailure(error));
@@ -40,12 +56,17 @@ export function* onDashboardUpdateItem() {
 }
 
 export function* dashboardUpdateItem({
-  payload: { history, itemType, ...data },
+  payload: { history, collection, itemType, ...data },
 }) {
   try {
-    yield axios.put("/api/crud/item", data);
+    const res = yield axios.put("/api/crud/item", data);
     yield put(dashboardUpdateItemSuccess()); // for debug purposes
-    yield put(fetchUiData());
+    yield put(
+      uiNewUpdateItem({
+        collection,
+        data: Object.entries(res.data).reduce(objectArraysToObjectsReducer, {}),
+      })
+    );
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
     yield put(dashboardUpdateItemFailure(error));
@@ -57,11 +78,17 @@ export function* onDashboardDeleteItem() {
 }
 
 export function* dashboardDeleteItem({
-  payload: { history, itemType, ...data },
+  payload: { history, collection, itemType, _id, ...data },
 }) {
   try {
-    yield axios.delete("/api/crud/item", { data });
+    yield axios.delete("/api/crud/item", { data: { ...data, _id } });
     yield put(dashboardDeleteItemSuccess()); // for debug purposes
+    yield put(
+      uiDeleteItem({
+        collection,
+        key: _id,
+      })
+    );
     yield put(fetchUiData());
     history.push(`/dashboard/${itemType}`);
   } catch (error) {
@@ -73,14 +100,18 @@ export function* onNewChampionship() {
   yield takeLatest(CrudActionTypes.NEW_CHAMPIONSHIP, newChampionship);
 }
 
-export function* newChampionship({
-  payload: { history, seriesLink, ...data },
-}) {
+export function* newChampionship({ payload: { history, ...data } }) {
   try {
-    yield axios.post("/api/crud/championship", data);
+    const res = yield axios.post("/api/crud/championship", data);
     yield put(newChampionshipSuccess()); // for debug purposes
-    yield put(fetchUiData());
-    history.push(`/${seriesLink}/championships`);
+    yield put(
+      uiNewUpdateItem({
+        collection: "championships",
+        data: Object.entries(res.data).reduce(objectArraysToObjectsReducer, {}),
+      })
+    );
+    yield put(uiUpdateSeries(res.data));
+    history.push(`/championship/${res.data._id}`);
   } catch (error) {
     yield put(newChampionshipFailure(error));
   }
@@ -97,12 +128,36 @@ export function* updateChampionship({
     yield axios.put("/api/crud/championship", data);
     yield put(updateChampionshipSuccess()); // for debug purposes
     yield put(fetchUiData());
-    history.push(`/${seriesLink}/championships`);
+    history.goBack();
   } catch (error) {
     yield put(updateChampionshipFailure(error));
   }
 }
 
+export function* onUpdateChampionshipSubitem() {
+  yield takeLatest(
+    CrudActionTypes.UPDATE_CHAMPIONSHIP_SUBITEM,
+    updateChampionshipSubitem
+  );
+}
+
+export function* updateChampionshipSubitem({
+  payload: { history, seriesLink, ...data },
+}) {
+  try {
+    const res = yield axios.put("/api/crud/championship/sub", data);
+    yield put(updateChampionshipSubitemSuccess()); // for debug purposes
+    yield put(
+      uiNewUpdateItem({
+        collection: "championships",
+        data: Object.entries(res.data).reduce(objectArraysToObjectsReducer, {}),
+      })
+    );
+    history.goBack();
+  } catch (error) {
+    yield put(updateChampionshipSubitemFailure(error));
+  }
+}
 export function* onDeleteChampionship() {
   yield takeLatest(CrudActionTypes.DELETE_CHAMPIONSHIP, deleteChampionship);
 }
@@ -128,5 +183,6 @@ export function* crudSagas() {
     call(onNewChampionship),
     call(onUpdateChampionship),
     call(onDeleteChampionship),
+    call(onUpdateChampionshipSubitem),
   ]);
 }
