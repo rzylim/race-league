@@ -20,8 +20,7 @@ export const itemDict = () => ({
     plural: "series",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item ? { ...item, _id } : { _id: "", name: "", link: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "", link: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -61,8 +60,7 @@ export const itemDict = () => ({
     plural: "regions",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item ? { ...item, _id } : { _id: "", name: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -90,8 +88,7 @@ export const itemDict = () => ({
     plural: "tiers",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item ? { ...item, _id } : { _id: "", name: "", colour: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "", colour: "" }),
     validationSchema: (currItems) =>
       Yup.object({
         name: Yup.string()
@@ -126,11 +123,10 @@ export const itemDict = () => ({
     plural: "games",
     relatedCollections: ["cars", "tracks"],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
+    initialValues: (item) =>
       item
         ? {
             ...item,
-            _id,
             cars: new Set(Object.keys(item.cars)),
             tracks: new Set(Object.keys(item.tracks)),
           }
@@ -178,10 +174,8 @@ export const itemDict = () => ({
     plural: "cars",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item
-        ? { ...item, _id }
-        : { _id: "", model: "", make: "", year: yearRange()[0] },
+    initialValues: (item) =>
+      item ? item : { _id: "", model: "", make: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         model: Yup.string()
@@ -229,8 +223,8 @@ export const itemDict = () => ({
     plural: "tracks",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item ? { ...item, _id } : { _id: "", name: "", year: yearRange()[0] },
+    initialValues: (item) =>
+      item ? item : { _id: "", name: "", year: yearRange()[0] },
     validationSchema: () =>
       Yup.object({
         name: Yup.string().required("Required"),
@@ -268,8 +262,7 @@ export const itemDict = () => ({
     plural: "teams",
     relatedCollections: [],
     perform: ["dashboard:edit"],
-    initialValues: (item, _id) =>
-      item ? { ...item, _id } : { _id: "", name: "" },
+    initialValues: (item) => (item ? item : { _id: "", name: "" }),
     validationSchema: () =>
       Yup.object({
         name: Yup.string()
@@ -296,10 +289,10 @@ export const itemDict = () => ({
     plural: "championships",
     relatedCollections: ["users", "teams"],
     perform: ["series:edit"],
-    initialValues: (championship, _id, thisSeries, uiData) =>
+    initialValues: (championship, thisSeries, uiData) =>
       championship
         ? {
-            _id,
+            _id: championship._id,
             name: championship.name,
             abbreviation: championship.abbreviation,
             series: championship.series._id,

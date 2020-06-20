@@ -124,7 +124,7 @@ const NewEditItemPageCore = ({
     <Container id="new-item-page">
       <h2>{(item ? "Edit" : "New") + ` ${modelName}`}</h2>
       <Formik
-        initialValues={initialValues(item, itemId, thisSeries, uiData)}
+        initialValues={initialValues(item, thisSeries, uiData)}
         validationSchema={validationSchema(currItems)}
         onSubmit={(formValues, { setSubmitting }) => {
           formValues = convertShallowSetsToArrays(formValues);

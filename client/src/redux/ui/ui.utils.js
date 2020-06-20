@@ -62,7 +62,7 @@ const arrayToObjectReducer = (acc, value) => {
   return typeof value === "object" && value !== null
     ? {
         ...acc,
-        [_id]: otherProps,
+        [_id]: { _id, ...otherProps },
       }
     : {
         ...acc,
