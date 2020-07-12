@@ -14,6 +14,7 @@ import DashboardPage from "./pages/dashboard/dashboard.component";
 import NewEditItemPage from "./pages/new-edit-item/new-edit-item.component";
 import ChampionshipsPage from "./pages/championships/championships.component";
 import ChampionshipPage from "./pages/championship/championship.component";
+import RoundPage from "./pages/round/round.component";
 import DriversPage from "./pages/drivers/drivers.component";
 import DriverPage from "./pages/driver/driver.component";
 
@@ -43,8 +44,16 @@ const App = ({ checkUserSession, fetchUiData, currentUser }) => {
             component={NewEditItemPage}
           /> */}
           <Route
-            path="/:parentItemType/:parentItemId/:itemType/:itemId"
+            path="/:parentItemType/:parentItemId/:itemType/:itemId/edit"
             component={NewEditItemPage}
+          />
+          <Route
+            path="/:parentItemType/:parentItemId/:itemType/new"
+            component={NewEditItemPage}
+          />
+          <Route
+            path="/:parentItemType/:parentItemId/:itemType/:itemId"
+            component={RoundPage}
           />
           <Route path="/:itemType/:itemId/edit" component={NewEditItemPage} />
           <Route path="/:itemType/new" component={NewEditItemPage} />

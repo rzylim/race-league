@@ -163,7 +163,9 @@ router.route("/championship/sub").put(async (req, res) => {
     } else if (data.name) {
       // update item
       const ind = championship.rounds.findIndex((round) => round._id == _id);
-      championship.rounds[ind] = { ...championship.rounds[ind], ...data };
+      Object.entries(data).forEach(([key, value]) => {
+        championship.rounds[ind][key] = value;
+      });
     } else {
       // delete item
       const ind = championship.rounds.findIndex((round) => round._id == _id);
